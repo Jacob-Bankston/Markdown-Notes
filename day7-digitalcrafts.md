@@ -1,153 +1,149 @@
-Notes from Day 7 of Digital Crafts Bootcamp
+#Day 7 - Digital Crafts - Notes
 
-Importing
-	To import a file you can say - import file
-	To import a class/function you can say - from file import class/function
+##Importing
+To import a file you can say - import file
 
-LIFE TIP - Code incrementally, go step by step, the smaller the step the better.
+To import a class/function you can say - from file import class/function
 
-	Snake case versus Camel Case
-	snake_case vs camelCase
-	Python uses Snake Case and JavaScript uses Camel Case
+*LIFE TIP - Code incrementally, go step by step, the smaller the step the better.*
 
-	If you don’t want to include something as required in the init method,
-		 you can still put it in the file, just not as a required input
+Snake case versus Camel Case
 
-	def __init__(self, name, title)
-		self.name = name
-		self.title = title
-		self.price = 0.0
-		self.color = gray
+snake_case vs camelCase
 
-RESEARCH - one to one, one to many, many to many
+Python uses Snake Case and JavaScript uses Camel Case
 
-	One to Many - Shopping List, Posts on a Website
+If you don’t want to include something as required in the init method, you can still put it in the file, just not as a required input
 
-	?DO NOT TAKE INPUT IN YOUR CLASS - It’s not the job of the input to
-		ask for the information. It should be only responsible for the domain
+```css
+def __init__(self, name, title)
+    self.name = name
+    self.title = title
+    self.price = 0.0
+    self.color = gray
+```
 
-RESEARCH - Domain objects, Model Classes
+##RESEARCH - one to one, one to many, many to many
 
-	Ask for input in the main.py file
+One to Many - Shopping List, Posts on a Website
 
-	You want to create code that can be shared with others,
-		otherwise it is unusable.
+DO NOT TAKE INPUT IN YOUR CLASS - It’s not the job of the input to ask for the information. It should be only responsible for the domain
 
-	Make sure that the classes are nice and lean
+*RESEARCH - Domain objects, Model Classes*
 
-	C# has heavy use of classes
+Ask for input in the main.py file
 
-	Shortcut in terminal - “code .” 
-	Opens the current folder in vs code
+*You want to create code that can be shared with others, otherwise it is unusable.*
 
-RESEARCH - Persistence, writing files in python
+*Make sure that the classes are nice and lean*
 
-Files
+**C# has heavy use of classes**
 
-	You have to open(“filename.txt”) then fileobject.close() the file
+*Shortcut in terminal - “code .” Opens the current folder in vs code.*
 
-	reading the file is the default code in the open function
+*RESEARCH - Persistence, writing files in python*
 
-	Remove white space from right side - contents.rstrip()
+##Files
 
-	If you forget to close the file, it takes up resources, no one else can 
-	open it or interface with it.
+You have to `open(“filename.txt”)` then `fileobject.close()` the file
 
-	Automatically close the file when done using the with operator
-	with open(“todo.txt”) as file_object:
+reading the file is the default code in the open function
 
-	Uses the normal indentation syntax of python to automatically close 
-	the file at the end of the usage. This is the preferred method.
-	
-	Read a file - file_object.read()
+Remove white space from right side - `contents.rstrip()`
 
-	Read a file line by line - for line in file_object: print(line)
-		This way is only available in the with function
-		it adds a \n function at the end of each line
+If you forget to close the file, it takes up resources, no one else can open it or interface with it.
 
-	Read the lines line by line - file_object.readlines()
-		[‘Wash the car \n’, ‘Feed the dog \n’]
-		returns an array of each line
+Automatically close the file when done using the with operator with `open(“todo.txt”)` as `file_object:`
 
-	Write to the file using the following syntax:
-		with open(“customers.txt”, “w”) as file_object:
-		file_object.write(“johndoe@gmail.com”)
-		This writes over the file with the new contents
+Uses the normal indentation syntax of python to automatically close the file at the end of the usage. This is the preferred method.
 
-	Append Mode! Adding the contents to the next line
-		with open(customers.txt”, “a”) as file_object:
-		file_obect.write(“johndoe@gmail.com”)
+Read a file - `file_object.read()`
 
-RESEARCH - JSON Files versus just simple text files
+Read a file line by line - `for line in file_object: print(line)`
+This way is only available in the with function it adds a \n function at the end of each line
 
-DEBUGGED - Be sure that you are in the appropriate directory when
-		running the file in the terminal!
+Read the lines line by line - `file_object.readlines()`
+`[‘Wash the car \n’, ‘Feed the dog \n’]`
+returns an array of each line
 
-JSON
+Write to the file using the following syntax:
+`with open(“customers.txt”, “w”) as file_object:
+file_object.write(“johndoe@gmail.com”)`
+This writes over the file with the new contents
 
-	JavaScript Object Notation - saved structured data
-	
-	Nothing more than a key value pair! Kind of like a dictionary.
+Append Mode! Adding the contents to the next line
+`with open(customers.txt”, “a”) as file_object:
+file_obect.write(“johndoe@gmail.com”)`
 
-	A valid JSON document has only one root level. (One Parent Level)
+*RESEARCH - JSON Files versus just simple text files*
 
-	You can always check the validity of a JSON file by googling a
-		JSON validator.
+**DEBUGGED - Be sure that you are in the appropriate directory when running the file in the terminal!**
 
-	If you have multiple ‘dictionary’ like sets you can place them in an array, 
-		or larger dictionary to nest everything in.
+##JSON
 
-	You have to import the json module in the python file:
-		import json
-	
-	Same way to WRITE to json files like any other files:
-		names = [“Mary”, “John”, “Steve”, “Phil”]
-		with open(“filename.json”, “w”) as file_object:
-			json.dump(names, file_object)
+JavaScript Object Notation - saved structured data
 
-	Same way to READ from son files like any other files:
-		with open(“filename.json”) as file_object:
-			new_list = json.load(file_object)
+Nothing more than a key value pair! Kind of like a dictionary.
 
-	When you are utilizing JSON you will most likely just write the information
-		again to not have an error pop up with having more than one root.
-		You will probably never use the append method for this.
+A valid JSON document has only one root level. (One Parent Level)
 
-	The json module does not know how to import an object from your
-		 class, only the base structural objects built into python.
+You can always check the validity of a JSON file by googling a JSON validator.
 
-	The prebuilt method in python to convert a class object to dictionary:
-		__dict__
-	
-	To tie that to an object with the name customer you would state:
-		customer.__dict__
+If you have multiple ‘dictionary’ like sets you can place them in an array, or larger dictionary to nest everything in.
 
-RESEARCH - @staticmethod
+You have to import the json module in the python file: `import json`
 
-	You can call the Static Methods on the class itself
-	
-	With static method you don’t have to create an init to call the function:
-		@staticmethod
-		def from_dictionary(dict):
-			return Customer(dict[“name”], dict[“age”])
-	
-	Calling the static method would look like this:
-		c = Customer.from_dictionary(dict)
+Same way to WRITE to json files like any other files:
+```python
+names = [“Mary”, “John”, “Steve”, “Phil”]
+with open(“filename.json”, “w”) as file_object:
+    json.dump(names, file_object)
+```
 
-	You can convert the JSON information back into an object, or keep it as
-		the data. It depends on what you’re doing with the information. If
-		you need to access a method of the class then you would need to
-		convert it back.
+Same way to READ from son files like any other files:
 
-	A practical example of JSON - A movie website has a dictionary with a
-		key of the dictionary of the list of movies to search through
+```python
+with open(“filename.json”) as file_object:
+    new_list = json.load(file_object)
+```
 
-	JSON is used as the primary means of sending you data, nothing to do
-		with html, css, interactivity, etc…
+When you are utilizing JSON you will most likely just write the information again to not have an error pop up with having more than one root. You will probably never use the append method for this.
 
-	Chrome Browser - JSON VIEW formatting for json files
+The json module does not know how to import an object from your class, only the base structural objects built into python.
 
-	JSON Lint - validate your JSON files!
+The prebuilt method in python to convert a class object to dictionary:
 
-	Shift+Tab will take the tabs to the left
-	Tab will shift the tabs to the right
+`__dict__`
+
+To tie that to an object with the name customer you would state:
+
+`customer.__dict__`
+
+*RESEARCH - `@staticmethod`*
+
+You can call the Static Methods on the class itself
+
+With static method you don’t have to create an init to call the function:
+```python
+@staticmethod
+def from_dictionary(dict):
+return Customer(dict[“name”], dict[“age”])
+```
+
+Calling the static method would look like this:
+```python
+c = Customer.from_dictionary(dict)
+```
+
+You can convert the JSON information back into an object, or keep it as the data. It depends on what you’re doing with the information. If you need to access a method of the class then you would need to convert it back.
+
+A practical example of JSON - A movie website has a dictionary with a key of the dictionary of the list of movies to search through
+
+JSON is used as the primary means of sending you data, nothing to do with html, css, interactivity, etc…
+
+Chrome Browser - JSON VIEW formatting for json files
+
+JSON Lint - validate your JSON files!
+
+Shift+Tab will take the tabs to the left
+Tab will shift the tabs to the right
