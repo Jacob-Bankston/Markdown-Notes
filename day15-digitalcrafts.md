@@ -134,7 +134,6 @@ let numbersDoubled = numbers.map(function(no) {
 
 #### Using Arrow Syntax
 
-
 ```js
 let numbersDoubled = numbers.map((no) => {
     return no * 2
