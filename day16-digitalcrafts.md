@@ -2,6 +2,76 @@
 
 ##jQuery
 
+```html
+<html>
+
+<body>
+
+    <input type="text" id="taskTitleTextBox" />
+    <button id="btnAdd">Add</button>
+
+    <button id="showCopyright">Show</button>
+
+
+    <div id="taskItemsDiv">
+
+    </div>
+
+    <div id="copyrightInfo" style="width: 100px; height:100px; background-color: yellow;display: none;">
+            Copyright information for DC 2019. 
+            <p>
+                All rights reserved..
+            </p>
+    </div>
+
+
+<script src="jQuery.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+```
+
+```js
+
+$(document).ready(() => {
+    
+    //$(".classname") // elements by class name
+
+    //$("p") // elements by tag name 
+
+    // # means to search using id 
+    let taskTitleTextBox = $("#taskTitleTextBox") 
+    let taskItemsDiv = $("#taskItemsDiv")
+    let copyrightInfo = $("#copyrightInfo")
+
+    $("#btnAdd").click(() => {
+
+        let title = taskTitleTextBox.val()
+        console.log(title)
+
+        let taskItemDiv = $("<div>")
+
+        taskItemDiv.css("background-color","yellow")
+            .append($("<div>"))
+
+        // html is innerHTML 
+        taskItemDiv.html(title)
+
+        taskItemsDiv.append(taskItemDiv)
+
+        //let taskItemDiv = document.createElement("div")
+
+    })
+
+    $("#showCopyright").click(() => {
+
+        copyrightInfo.fadeToggle(500)
+            
+    })
+
+})
+```
+
 api.jquery.com
 
 It is a javascript library that was made in 2006
@@ -51,6 +121,40 @@ Lots of options of what you can do with jQuery!!
 jqueryui.com is another resource for jquery options
 
 ## Validation
+
+```html
+<html>
+
+<body>
+
+    <form id="signUpForm">
+        <input name="fullName" type="text" required />
+        <label>SSN</label>
+        <input type="text" pattern="^\d{3}-\d{2}-\d{4}$" required />
+        <button>Submit</button>
+    </form>
+
+<script src="validation.js"></script>
+</body>
+</html>
+```
+
+```js
+
+let signUpForm = document.getElementById("signUpForm")
+
+signUpForm.addEventListener('submit',(event) => {
+ 
+    let isFormValid = signUpForm.checkValidity()
+
+    console.log(isFormValid)
+
+    // preventing to submit the form 
+    event.preventDefault()
+
+    console.log("about to submit the form...")
+})
+```
 
 `<form></form>`
 
