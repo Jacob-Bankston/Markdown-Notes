@@ -39,15 +39,126 @@ asynchronous requests - this means that the bigger stuff will happen in the back
 // XLMHttpRequest
 
 ```js
-let req = new XLMHttpRequest()
+let req = new XMLHttpRequest()
 req.open('GET', url) // first part has to be a GET or a POST request, second thing has to be a url
 
 // load event is next! It means the request has been loaded
 // attach load event to the XMLHttpRequest object
-req.addEventListener('load', () => {
-    console.log(this)
+req.addEventListener('load', function() {
+
+    // Using JSON.parse function to parse JSON string to a JavaScript Object
+    let user = JSON.parse("{'name':'John'}")
+    console.log(user)
+    // whenever you're writing JSON style you will always have quotes around the key and value items, normal JavaScript doesn't have quotes around the key!
+    // if you are passing in a JSON string it has to be in JSON format or it will return an error!
+
+    let posts = JSON.parse(this.responseText)
+    console.log(posts)
+
+    posts.map(post => {
+        return `<div>
+                    <h4>${post.title}</h4>
+                    <p>${post.body}</p>
+                </div>`
+    })
+
+
+    
+    console.log(this.responseText) // this is a way to grab the text from the XMLHttpRequest
 })
 
 // sending the request
 req.send()
+```
+
+when you are talking about urls and apis then they can also be referred to as endpoints
+
+The mozilla developers website has a lot of information on XMLhttpRequests
+
+reqres.in
+
+download postman
+
+```js
+
+// app.js file from Azam
+
+let postList = document.getElementById("postList")
+
+let url = 'https://jsonplaceholder.typicode.com/posts'
+
+// XMLHttpRequest 
+let req = new XMLHttpRequest() 
+req.open('GET',url)
+// attach load event to the XMLHttpRequest object 
+req.addEventListener('load',function() {
+
+    // Using JSON.parse function to parse 
+    // JSON string to JavaScript object
+    //let user = JSON.parse('{"name":"John"}')
+
+    let posts = JSON.parse(this.responseText)
+
+    let postItems = posts.map(post => {
+        return `<div>
+                    <h4>${post.title}</h4>
+                    <p>${post.body}</p>
+                </div>`
+    })
+
+    postList.innerHTML = postItems.join('')
+
+
+    console.log(posts)
+})
+
+// sending the request 
+req.send() 
+```
+
+```html
+
+<!-- Example html stuff -->
+
+    <head></head>
+
+<body>
+
+    <div id="movieList">
+
+    </div>
+
+    <script src="movies.js"></script>
+</body>
+</html>
+```
+
+```js
+
+// movies example
+
+let movieList = document.getElementById("movieList")
+
+let moviesURL = "http://www.omdbapi.com/?s=Batman&page=2&apikey=564727fa"
+
+let req = new XMLHttpRequest()
+req.open('GET',moviesURL)
+req.addEventListener('load',() => {
+    let movies = JSON.parse(event.currentTarget.responseText) // 
+    
+    let movieItems =  movies.Search.map(movie => {
+        return `<div>
+                    <h2>${movie.Title}</h2>
+                    <img src='${movie.Poster}' />
+                </div>`
+    })
+
+    movieList.innerHTML = movieItems.join('')
+    
+    //event is available automatically 
+    console.log(movies.Search)
+}) 
+
+// make the actual request...
+req.send() 
 ```
