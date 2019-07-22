@@ -18,3 +18,36 @@ OMDb API - The Open Movie Database
 
 News API
 
+The company that creates the API is incentivized by being able to have one source to pull all of their data from for all of their products.
+
+In the real world every API should be connected to a database
+
+github public apis!!
+
+APIs are created by the backend developers
+
+Test your json skills with jsonplaceholder!
+
+```js
+let url = 'https://jsonplaceholder.typicode.com/posts'
+
+
+```
+
+asynchronous requests - this means that the bigger stuff will happen in the background and not mess up the user's interface
+
+// XLMHttpRequest
+
+```js
+let req = new XLMHttpRequest()
+req.open('GET', url) // first part has to be a GET or a POST request, second thing has to be a url
+
+// load event is next! It means the request has been loaded
+// attach load event to the XMLHttpRequest object
+req.addEventListener('load', () => {
+    console.log(this)
+})
+
+// sending the request
+req.send()
+```
