@@ -77,6 +77,7 @@ promise.then(() => {
 })
 ```
 
+You can change the events together with `.then`
 
 ```js
 let promise = new Promise((resolve, reject) => {
@@ -86,6 +87,47 @@ let promise = new Promise((resolve, reject) => {
 })
 
 promise.then((movies) => {
-    console.log("resolved")
+    console.log(movies)
+    return movies
+}).then((movies) => {
+    console.log("Filter the movies based on rating")
+    return movies
+}).then((m) => {
+    console.log("Filter on fav movies")
+    console.log(m)
 })
 ```
+
+`.catch` is when something bad happens. Just like a try/catch
+
+```js
+.catch((error) => {
+    console.log(error)
+})
+```
+
+Promises are like a sugar coating for callbacks!
+
+##Fetch Library
+
+```js
+
+let moviesURL = url
+
+fetch(moviesURL)
+    .then(response => {
+        return (response.json()) // response.json() returns a promise
+    }).then(json => {
+        console.log(json)
+    })
+```
+
+```js
+async function fetchMovies() {
+    let response = await fetch(moviesURL) // you must use await inside a function marked async
+    let json = await response.json()
+    console.log(json)
+}
+```
+
+`await` does the evaluation of the promise for you!
