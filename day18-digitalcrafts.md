@@ -131,3 +131,212 @@ async function fetchMovies() {
 ```
 
 `await` does the evaluation of the promise for you!
+
+```js
+// AZAM Superhero Review
+
+// http://www.omdbapi.com/?s=batman&apikey=564727fa
+// http://www.omdbapi.com/?i=insertSelectedimdbIDhere&apikey=insertyourkeyhere 
+
+//let movies = [] 
+
+let movieList = document.getElementById("movieList")
+
+function fetchMovies(moviesDownloadCompleted) {
+
+    let req = new XMLHttpRequest() 
+    req.open('GET','http://www.omdbapi.com/?s=batman&apikey=564727fa')
+    req.addEventListener('load',() => {
+
+    // event.currentTarget is XMLHttpRequest object
+    let request =  event.currentTarget
+
+    let response = JSON.parse(request.responseText)
+    let movies = response.Search
+    moviesDownloadCompleted(movies)
+
+    //displayMoviesForAmazonPrimeFormat(movies)
+    /*
+    console.log(movies)
+
+    let movieItems = movies.map(movie => {
+        return `<li>${movie.Title}</li>`
+    })
+
+    movieList.innerHTML = movieItems.join('') */
+})
+
+req.send() 
+
+}
+
+fetchMovies((movies) => {
+    console.log(movies)
+    displayMovies(movies)
+}) 
+
+/*
+fetchMovies((movies) => {
+    console.log(movies)
+    displayMoviesForAnotherDisplay(movies)
+}) */
+
+function displayMovies(movies) {
+
+    let movieItems =  movies.map(movie => {
+        return `<li>${movie.Title}</li>`
+    })
+
+    movieList.innerHTML = movieItems.join('')
+
+}
+
+
+```
+
+```js
+// AZAM Extended Notes
+
+// http://www.omdbapi.com/?s=batman&apikey=564727fa
+// http://www.omdbapi.com/?i=insertSelectedimdbIDhere&apikey=insertyourkeyhere 
+
+
+function fetchMovies() {
+
+    let req = new XMLHttpRequest() 
+req.open('GET','http://www.omdbapi.com/?s=batman&apikey=564727fa')
+
+/*
+req.addEventListener('load',function() {
+    console.log('function()')
+    console.log(this) // this is XMLHttpRequest object
+}) */
+
+req.addEventListener('load',() => {
+
+    // event.currentTarget is XMLHttpRequest object
+    let request =  event.currentTarget
+
+    let response = JSON.parse(request.responseText)
+    let movies = response.Search
+    
+    console.log(request.responseText)
+
+    console.log(event)
+
+    //console.log('arrow function')
+    //console.log(this) // this window object 
+})
+
+req.send() 
+
+}
+
+
+fetchMovies() 
+```
+
+
+```js
+
+// AZAM Notes
+
+// using fetch library 
+
+let moviesURL = "http://www.omdbapi.com/?s=batman&apikey=564727fa"
+/*
+fetch(moviesURL)
+    .then(response => {
+        console.log(response)
+        return response.json() // response.json() returns a promise 
+    }).then(json => {
+        console.log(json)
+    }) */
+
+//fetch(moviesURL).then(response => console.log(response))
+
+
+async function fetchMovies() {
+
+    let response = await fetch(moviesURL) // 
+    let json  = await response.json() // resolve the promise and give you the final value
+    console.log(json)
+}
+
+fetchMovies() 
+
+
+
+/*
+let promise1 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        resolve("BITCOIN")
+    },2000)
+})
+
+let promise2 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        resolve("LITECOIN")
+    },4000)
+})
+
+let promise3 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        resolve("ETHERIUM")
+    },6000)
+})
+
+Promise.all([promise1,promise2,promise3])
+.then(data => console.log(data))
+
+let moviesPromise = new Promise((resolve,reject) => {
+
+    let req = new XMLHttpRequest() 
+    req.open('GET','http://www.omdssssssbapi.com/?s=batman&apikey=564727fa')
+    req.addEventListener('load',() => {
+        let request =  event.currentTarget
+        let movies = JSON.parse(request.responseText)
+        if(movies) {
+            resolve(movies)
+        } else {
+            reject("Unable to get movies")
+        }
+    })
+
+    req.addEventListener('error',() => {
+        reject("umnable to get movies")
+    })
+
+    req.send()
+
+})
+
+moviesPromise.then((movies) => {
+    console.log(movies)
+}).catch(error => console.log(error)) 
+
+
+/*
+let promise = new Promise((resolve, reject) => {
+    setTimeout(() =>{
+        resolve(["Spiderman","Batman"])
+    },5000)
+})
+
+promise.then((movies) => {
+    console.log(movies)
+    return movies 
+}).then((movies) => {
+    console.log("Filter the movies based on rating")
+    return movies 
+}).then((m) => {
+    console.log("Filter on fav movies")
+    console.log(m)
+}).then(() => {
+    console.log("ssss")
+})
+.catch((error) => {
+
+}) */
+```
+
