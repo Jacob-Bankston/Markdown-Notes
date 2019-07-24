@@ -1,5 +1,113 @@
 # Day 19 - Digital Crafts - Notes
 
+## Coffee Review
+
+```html
+
+<!-- HTML Review Portion -->
+
+<html>
+
+<body>
+
+    <input type="text" id="coffeeNameTextBox" required />
+    <input type="text" id="emailTextBox" pattern="" />
+    <button id="addOrderButton">Order</button>
+
+    <div id="orderList"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
+```
+
+```js
+
+// JavaScript Review Portion
+
+let coffeeURL = "http://dc-coffeerun.herokuapp.com/api/coffeeorders/"
+
+
+let orderList = document.getElementById("orderList")
+let coffeeNameTextBox = document.getElementById("coffeeNameTextBox")
+let emailTextBox = document.getElementById("emailTextBox")
+let addOrderButton = document.getElementById("addOrderButton")
+
+addOrderButton.addEventListener('click',() => {
+    let coffee = coffeeNameTextBox.value 
+    let email = emailTextBox.value 
+    placeOrder(coffee,email)
+})
+
+function placeOrder(coffee, email) {
+
+    fetch(coffeeURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          emailAddress: email,
+          coffee: coffee,
+        })
+      }).then(response => response.json())
+        .then(result => {
+            if(result._id) {
+                // looks like the order went through 
+                displayOrders() 
+            } else {
+                // show error to the user on the screen 
+            }
+
+        })
+        
+        /*
+        {
+    "__v": 0,
+    "coffee": "Hot Coffee",
+    "emailAddress": "johndoe@gmail.com",
+    "_id": "5d386d148846d40400f11f5e"
+}
+        */
+
+}
+
+async function fetchOrders() {
+    
+    let response = await fetch(coffeeURL)
+    return await response.json() // returning a promise 
+    //console.log("inside fetch orders function")
+    //console.log(json)
+    //return json 
+}   
+
+function displayOrders() {
+    console.log("calling fetch orders")
+    fetchOrders().then(orders => {
+        let list = Object.values(orders)
+        let orderItems = list.map(order => {
+            return `<div>${order.coffee} - ${order.email}</div>`
+        })
+        
+        orderList.innerHTML = orderItems 
+
+    })
+}
+
+displayOrders()
+
+/*
+fetch(coffeeURL)
+    .then(response => {
+        return response.json()
+    }).then(json => {
+        console.log(json)
+    })
+*/
+```
+
+
 in order to display something delayed correctly you have to return a promise to string together instead of returning the json. Json will work immediately and the promise will wait for further instruction.
 
 `return await response.json()`
@@ -97,7 +205,8 @@ Whenever you are thinking about storing data in the database, think about that d
 ```js
 let usersRef = database.ref('users')
 
-usersRef.on('value', (snapshot) => { // Any values that are changed in the database it will reload EVERYTHING, not the best for big apps
+usersRef.on('value', (snapshot) => { // Any values that are changed in the database 
+// it will reload EVERYTHING, not the best for big apps
 
     let users = []
 
@@ -115,9 +224,133 @@ usersRef.on('value', (snapshot) => { // Any values that are changed in the datab
 
 function displayUsers(users) {
     users.map(user => {
-        return `<div>${user.name} - ${user.age}</div>`
+        return `<div>
+                    ${user.name} - ${user.age}
+                </div>`
     })
 
     userList.innerHTML = usersItems.join('')
 }
+```
+
+```html
+<!-- HTML Firebase Azam Notes Portion -->
+
+<html>
+    <body>
+
+        <h2>Add User</h2>
+        <input type="text" id="nameTextBox" />
+        <input type="text" id="ageTextBox" />
+        <button id="addUserButton">Add User</button>
+
+        <div id="userList" />
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDB6hPm3tGd5R1BNQQn24KDcNFQ7tuidoc",
+    authDomain: "groceryapp-30a4d.firebaseapp.com",
+    databaseURL: "https://groceryapp-30a4d.firebaseio.com",
+    projectId: "groceryapp-30a4d",
+    storageBucket: "",
+    messagingSenderId: "343565691441",
+    appId: "1:343565691441:web:98d85fb6daa7e62c"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  // create an object of firebase database 
+  var database = firebase.database() 
+</script>
+    <script src="app.js"></script>
+    </body>
+</html>
+```
+
+```js
+
+// Firebase app.js Azam Notes
+
+let nameTextBox = document.getElementById("nameTextBox")
+let ageTextBox = document.getElementById("ageTextBox")
+let addUserButton = document.getElementById("addUserButton")
+let userList = document.getElementById("userList")
+
+
+let usersRef = database.ref('users')
+
+// setup observation 
+/*
+commentsRef.on('child_changed', function(data) {
+    setCommentValues(postElement, data.key, data.val().text, data.val().author);
+  }); */
+
+usersRef.on('value',(snapshot) => {
+
+    let users = [] 
+
+    console.log("VALUE CHANGED EVENT OCCURED")
+    for(key in snapshot.val()) {
+        let user = snapshot.val()[key]
+        user.key = key 
+        console.log(user)
+        users.push(user)
+    }
+
+    displayUsers(users)
+    //let users = Object.values(snapshot.val())
+    //console.log(users)
+})
+
+function deleteUser(key) {
+    usersRef.child(key).remove() 
+}
+
+function displayUsers(users) {
+    let userItems = users.map(user => {
+        return `<div>${user.name} - ${user.age} <button onclick='deleteUser("${user.key}")'>Delete</button> </div>`
+    })
+
+    userList.innerHTML = userItems.join('')
+}
+
+addUserButton.addEventListener('click',() => {
+
+    let name = nameTextBox.value 
+    let age = parseInt(ageTextBox.value) 
+    saveUser(name, age)
+})
+
+function saveUser(name, age) {
+    usersRef.push({ // use push to create a random id for the node
+    name: name, 
+    age: age
+})
+}
+
+/*
+- Root 
+    - Users 
+         - User 
+             - name 
+             - age 
+         - User 2
+             - name 
+             - age 
+*/
+
+// users node 
+/*
+let usersRef = database.ref('users')
+usersRef.child("user2").set({
+    name: 'Mary', 
+    age: 23
+}) */
 ```
