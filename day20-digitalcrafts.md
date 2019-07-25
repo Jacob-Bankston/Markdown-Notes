@@ -324,7 +324,7 @@ function displayUsers(users) {
         return `<div>
                     ${user.name}
                     <input type="text" placeholder="name goes here"><input>
-                    <button>Add User</button><br>
+                    <button onclick'addHobby("${user.userId}")'>Add User</button><br>
                     ${hobbyItems}
                 </div>`
     })
@@ -332,7 +332,13 @@ function displayUsers(users) {
     userList.innerHTML = userItems.join('')
 
 }
-```
 
+function addHobby(userId) {
+    let hobby = obj.previousElementSibling.value
+    usersRef.child(userId).set({
+        hobbies: hobbies.concat(hobby)
+    })
+}
+```
 
 Make sure that the snapshot function runs on load of the page while it's wrapped in the function.
