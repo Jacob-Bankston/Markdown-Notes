@@ -282,7 +282,7 @@ usersRef.on('value', (snapshot) => {
         let user = new User(userItem.name, userItem.age)
         user.userId = item.key // unique key from firebase database
 
-        user.hobbies = item.hobbies
+        user.hobbies = userItem.hobbies
 
         console.log(item.val())
     })
