@@ -272,25 +272,7 @@ class User {
 Now we have to get the input from the users!
 
 ```js
-usersRef.on('value', (snapshot) => {
-    console.log(snapshot.val())
-
-    snapshot.forEach(item => {  // You can use any variable for snapshot, but if any value is changed under the users reference then it will contain the snapshot
-        console.log(item.key)
-        console.log(item.val())
-        let userItem - item.val()
-        let user = new User(userItem.name, userItem.age)
-        user.userId = item.key // unique key from firebase database
-
-        user.hobbies = userItem.hobbies
-
-        console.log(item.val())
-    })
-})
-```
-
-```js
-// Updating to add a Hobby Function
+// Updating to add the userId
 // user.js
 class User {
     constructor(name, age) {
@@ -306,5 +288,51 @@ class User {
     }
 }
 ```
+
+```js
+usersRef.on('value', (snapshot) => {
+    console.log(snapshot.val())
+
+    let users = []
+
+    snapshot.forEach(item => {  // You can use any variable for snapshot, but if any value is changed under the users reference then it will contain the snapshot
+        console.log(item.key)
+        console.log(item.val())
+        let userItem - item.val()
+        let user = new User(userItem.name, userItem.age)
+        user.userId = item.key // unique key from firebase database
+
+        user.hobbies = userItem.hobbies
+
+        console.log(item.val())
+
+        users.push(user) // adding to array
+    })
+
+    displayUsers(users)
+
+})
+
+function displayUsers(users) {
+
+    users.map(user => {
+
+        let hobbyItems = user.hobbies.map(hobby => {
+            return `<p>${hobby.name}</p>`
+        }).join('')
+
+        return `<div>
+                    ${user.name}
+                    <input type="text" placeholder="name goes here"><input>
+                    <button>Add User</button><br>
+                    ${hobbyItems}
+                </div>`
+    })
+
+    userList.innerHTML = userItems.join('')
+
+}
+```
+
 
 Make sure that the snapshot function runs on load of the page while it's wrapped in the function.
