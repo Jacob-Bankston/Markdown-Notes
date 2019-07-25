@@ -342,3 +342,53 @@ function addHobby(userId) {
 ```
 
 Make sure that the snapshot function runs on load of the page while it's wrapped in the function.
+
+* Root
+  * Stores
+    * Walmart
+      * Address: "222 Wally Ln."
+      * Name: "Walmart"
+
+```js
+let storesRef = database.ref('stores').child('Walmart').set( {
+    name: 'Walmart',
+    address: '222 Wally Ln.'
+})
+
+let storesRef = database.ref('stores').child('HEB').set( {
+    name: 'HEB',
+    address: '333 HEB St.'
+})
+
+let storesRef = database.ref('stores').child('Krogers').set( {
+    name: 'Krogers',
+    address: '222 Krogie Pl.'
+})
+```
+
+Make sure that the name of all of the nodes are unique!
+
+```js
+// creating a unique key for the store
+let storesRef = database.ref('stores').push({
+    name: 'Walmart',
+    address: '1200 Studemont Dr.'
+})
+```
+
+```js
+// accessing the child using the key
+let storesRef = database.ref('stores').child().set({
+    name: 'Walmart'
+    address: '1200 Gessner Rd.'
+})
+```
+
+```js
+database.ref('value', (snapshot) => {
+    console.log("VALUE EVENT FIRED...")
+    for(key in snapshot.val) {
+        console.log(key)
+    }
+})
+```
