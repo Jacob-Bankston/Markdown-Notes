@@ -1,0 +1,77 @@
+# Day 21 - Digital Crafts - Notes
+
+##Kelsey
+
+* Great Projection
+* Very familiar with slides
+* A lot of research went in to this presentation
+* Very comfortable speaking to the group, normal speaking tone instead of a "presentation voice"
+* Awesome idea to use technology in your presentation!!
+* You really sold yourself to the group as a valuable resource as a user experience expert! Be prepared to have everyone go through you to test out their products next week!
+* Happy Path First is a great mindset! Thanks for sharing this with us!!
+* Things Organized Neatly
+
+##Carine
+
+* I love your smile! Very positive throughout the presentation
+* You warmed everyone up by having them share about themselves. It made the room more comfortable :]
+* I love your topic, happiness is so important in the world!
+* You're a great public speaker, great projection, expressive gestures and good inflection in your voice.
+* You seem very comfortable in front of an audience!
+
+##Git Branches
+
+The purpose for branches is to protect you from messing up the project.
+
+The other benefit is it is only working on small versions of the stuff.
+
+You have a main master branch to merge, and you can merge branches together without going to the master.
+
+Merging two branches creates a new branch.
+
+Commit changes frequently to have a up to date history.
+
+Be very descriptive and punctual in your commit messages so we know what you're doing
+
+####Merge Conflicts
+
+* Should I take John's menu or Sally's menu?
+
+You have to get together and discuss what you're putting together and solve the issue then try again.
+
+####Master Branch
+
+The main branch for all the commits.
+
+You have to refer your branch back with the master and pull the information for it to see how your feature interacts with the rest of the code.
+
+You do not want to work in isolation.
+
+__Merge Master into Filter Branch__
+* You check to make sure your thing doesn't break the master branch BEFORE you push to the master file.
+* You check this by making unit tests to check the code.
+
+checkout - moving around inside of the git folder
+pull request - you request for your branch changes to go to the master
+add - adding files to your current section of the git (branch or master)
+commit - committing your changes of what you added to the git (branch or master)
+*checkout the local master - pull from the remote master to make sure your code still works with the master*
+
+git checkout master
+git pull origin master
+git checkout -b 'change greeting function' - *this creates a new branch with the -b*
+git checkout -b 'change greeting'
+git branch
+git merge __(whatever your merging to goes here)__ - *it will default to whatever branch you're on currently*
+
+## Software Development Principles
+
+#### Waterfall
+
+Step by step process to go through all of the process to create an application. Can take a long time to construct the entire system.
+
+#### Agile
+
+Also known as Pair Programming, Scrum, Deloyment, Continuous Development, Continuous Testing
+
+Find out the task list of everything that you need ot add.
