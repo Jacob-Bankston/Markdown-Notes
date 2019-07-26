@@ -99,7 +99,8 @@ function displayFancyWeather(weather) {
 
 }
 
-fetchWeather((weather) => { // You do not have to pass in an assigned function you can simply do an anonymous function
+fetchWeather((weather) => { // You do not have to pass in an assigned function 
+// you can simply do an anonymous function
     let weatherItem = `<h1>${weather.main.temp}</h1>`
     fancyWeatherDiv.innerHTML = weatherItem
 })
@@ -295,7 +296,8 @@ usersRef.on('value', (snapshot) => {
 
     let users = []
 
-    snapshot.forEach(item => {  // You can use any variable for snapshot, but if any value is changed under the users reference then it will contain the snapshot
+    snapshot.forEach(item => {  // You can use any variable for snapshot, but if any
+    // value is changed under the users reference then it will contain the snapshot
         console.log(item.key)
         console.log(item.val())
         let userItem - item.val()
@@ -388,12 +390,14 @@ let storesRef = database.ref('stores').child().set({
 database.ref('value', (snapshot) => {
     console.log("VALUE EVENT FIRED...")
     snapshot.forEach(item => {
-        console.log(item.key) // gets you the key - without this you can't delete or add items
+        console.log(item.key) // gets you the key - without this you can't delete or
+        // add items - this is a string - it cannot contain @ symbols
         console.log(item.val()) // gets you the object
         }
     })
     // for(key in snapshot.val) {
-    //     // let store = { key, ...snapshot.val()[key] } // spread operator - it's a short hand for copying one set of values to another
+    //     // let store = { key, ...snapshot.val()[key] } 
+    // spread operator - it's a short hand for copying one set of values to another
     // }
   }
 })
