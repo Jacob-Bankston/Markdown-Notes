@@ -387,8 +387,14 @@ let storesRef = database.ref('stores').child().set({
 ```js
 database.ref('value', (snapshot) => {
     console.log("VALUE EVENT FIRED...")
-    for(key in snapshot.val) {
-        console.log(key)
-    }
+    snapshot.forEach(item => {
+        console.log(item.key) // gets you the key - without this you can't delete or add items
+        console.log(item.val()) // gets you the object
+        }
+    })
+    // for(key in snapshot.val) {
+    //     // let store = { key, ...snapshot.val()[key] } // spread operator - it's a short hand for copying one set of values to another
+    // }
+  }
 })
 ```
