@@ -1,6 +1,6 @@
 # Day 21 - Digital Crafts - Notes
 
-##Kelsey
+## Kelsey
 
 * Great Projection
 * Very familiar with slides
@@ -11,7 +11,7 @@
 * Happy Path First is a great mindset! Thanks for sharing this with us!!
 * Things Organized Neatly
 
-##Carine
+## Carine
 
 * I love your smile! Very positive throughout the presentation
 * You warmed everyone up by having them share about themselves. It made the room more comfortable :]
@@ -19,7 +19,7 @@
 * You're a great public speaker, great projection, expressive gestures and good inflection in your voice.
 * You seem very comfortable in front of an audience!
 
-##Git Branches
+## Git Branches
 
 The purpose for branches is to protect you from messing up the project.
 
@@ -33,13 +33,13 @@ Commit changes frequently to have a up to date history.
 
 Be very descriptive and punctual in your commit messages so we know what you're doing
 
-####Merge Conflicts
+#### Merge Conflicts
 
 * Should I take John's menu or Sally's menu?
 
 You have to get together and discuss what you're putting together and solve the issue then try again.
 
-####Master Branch
+#### Master Branch
 
 The main branch for all the commits.
 
@@ -82,7 +82,7 @@ A normal sprint is 2 weeks. (There's a lot of flexibility on this topic in the i
 
 #### Stories
 
-When you have a story from a business person you have to be able to break down what things you have to break down and implement to create that thing. All of the points then can break down into their own points. It is your job as a developer to convert the story into the action items of what you need to construct and work on in the work flow. THIS IS NOT A TIME FRAME, THESE ARE ACTION ITEMS WITHOUT A TIME FRAME.
+When you have a story from a business person you have to be able to break down what things you have to break down and implement to create that thing. All of the points then can break down into their own points. It is your job as a developer to convert the story into the action items of what you need to construct and work on in the work flow. __THIS IS NOT A TIME FRAME, THESE ARE ACTION ITEMS WITHOUT A TIME FRAME.__
 
 * Overall Example:
   * Login Page
@@ -91,7 +91,7 @@ When you have a story from a business person you have to be able to break down w
   * Search Products
   * Shopping Cart
 
-PLANNING POKER - Everyone will try and convince each other that their evaluation of action items is more accurate and to defend the amount of points to cross. When something has too many points, split it into multiple sections to work on.
+__PLANNING POKER__ - Everyone will try and convince each other that their evaluation of action items is more accurate and to defend the amount of points to cross. When something has too many points, split it into multiple sections to work on.
 
 * Overall Example:
   * Login Page [Guesses - 5, 8, 8, 8]
@@ -108,3 +108,39 @@ PLANNING POKER - Everyone will try and convince each other that their evaluation
   * Pulling authentication from database
   * Set up a database to store the data
   * Etc...
+
+#### Sticky Notes
+You take a sticky note with an action item, put your name on it with extra information as it moves down the chart.
+
+The main goal is to finish each story! Help push all of the sticky notes to the end of the list.
+
+* Story
+  * Used to list out the task items on each story to work on.
+* Doing
+  * Who is doing the task - How much time it will take
+* Done
+  * Who did the thing and is it finished - How long it actually took - Ready to Test
+* Testing
+  * Put the code through Unit Testing and actual Testing
+* Completed
+  * List of all of the completed task lists
+
+__At the end of the two week sprints you have to deploy the application to demo the product to the business team. Everyone will be there, you may be presenting this to 30+ members of your team.__
+
+#### Velocity
+
+Then it's not over!! At this point you should determine how many action items that you can handle within a given time period by determining your average velocity of productivity.
+
+#### Scrum Meetings
+
+__A morning meeting where they answer three questions.__
+
+*This should last less than 2 minutes.*
+
+1. What you did yesterday
+2. What are your goals for today
+3. What is going to be the challenges that will inhibit you in those goals.
+
+#### Retrospective
+
+* After the sprint you have a meeting to discuss what worked well and what did not work well. This is something to reflect on the team work and how to improve the team in the future.
