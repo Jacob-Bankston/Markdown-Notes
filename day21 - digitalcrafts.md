@@ -74,4 +74,37 @@ Step by step process to go through all of the process to create an application. 
 
 Also known as Pair Programming, Scrum, Deloyment, Continuous Development, Continuous Testing
 
+## Sprints in Agile
+
 Find out the task list of everything that you need ot add.
+
+A normal sprint is 2 weeks. (There's a lot of flexibility on this topic in the indsutry)
+
+#### Stories
+
+When you have a story from a business person you have to be able to break down what things you have to break down and implement to create that thing. All of the points then can break down into their own points. It is your job as a developer to convert the story into the action items of what you need to construct and work on in the work flow. THIS IS NOT A TIME FRAME, THESE ARE ACTION ITEMS WITHOUT A TIME FRAME.
+
+* Overall Example:
+  * Login Page
+  * Sign Up Page
+  * Display Products
+  * Search Products
+  * Shopping Cart
+
+PLANNING POKER - Everyone will try and convince each other that their evaluation of action items is more accurate and to defend the amount of points to cross. When something has too many points, split it into multiple sections to work on.
+
+* Overall Example:
+  * Login Page [Guesses - 5, 8, 8, 8]
+  * Sign Up Page [Guesses - 5, 5, 3, 6]
+  * Display Products [Guesses - 9, 8, 10, 7]
+  * Search Products 
+  * Shopping Cart
+
+* Example: The user should be able to login on the login page
+  * Text input from user
+  * Button interactivity
+  * Styling of page
+  * Connecting to database
+  * Pulling authentication from database
+  * Set up a database to store the data
+  * Etc...
