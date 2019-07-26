@@ -138,7 +138,7 @@ Debugging will be your lifesaver in this. It will take a lot of practice to full
 
 ##More Firebase - Appending more Objects to nodes
 
-If you don't have any leaves you can't append anything.
+If you don't have any leave you can't append anything.
 
 ```js
 
@@ -168,9 +168,9 @@ addUserButton.addeEventListener('click', () => {
 
 //Hard Coding into to prove concept
 function saveUser(name, age) {
-
-    let hobby = {name: 'Golf', category: 'Sports'}
+    
     let hobby2 = {name: 'Hiking', category: 'Outdoors'}
+    let hobby = {name: 'Golf', category: 'Sports'}
 
     usersRef.push({ // this .push() function has nothing to do with Array.push()
         name: name,
