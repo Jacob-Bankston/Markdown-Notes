@@ -144,3 +144,47 @@ __A morning meeting where they answer three questions.__
 #### Retrospective
 
 * After the sprint you have a meeting to discuss what worked well and what did not work well. This is something to reflect on the team work and how to improve the team in the future.
+
+## Authentication
+
+Grabe the script for the firebase auth in the documentation
+
+Available web libraries in web - step 5 - authentication
+
+Authentication tab in firebase - add a sign-in method
+
+Users does not auto refresh, you have to do that manually to check
+
+```js
+
+// Sign up a new user code! Documentation has other code to manipulate other things!
+registerButton.addEventListener('click', () = {
+    let email = registerEmailTextBox.value
+
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        });
+})
+```
+
+__Check the Firebase Authentication tab in the docs. Google the terms and read!__
+
+When you get the object for the user you want to know what the `uid` is. 
+It is the __unique__ ID code for that user to separate them from the other users.
+
+Know the difference between `type="text"` and `type="password"`!
+
+*For a work-around for now add js files for separate html files to work around an issue with errors popping up when you change pages.*
+
+* Application Tab Google Chrome Developer Tools
+  * Go into Databases and find Firebase
+
+```js
+let currentUser = firebase.auth().currentUser
+console.log(currentUser)
+```
+
+You can always check for the current user to get their information from the authentication firebase data to pull their uid to manipulate it.
