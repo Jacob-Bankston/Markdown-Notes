@@ -278,3 +278,306 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
 // });
 ```
+
+## Three New Ways to Secure Your App with Firebase Authentication
+
+
+## Firebase Security Rules
+
+Cloud Firestore and Cloud Storage - Common Expression Language Structure - relies on `match` and `allow` statements
+```
+service <<name>> {
+  // Match the resource path.
+  match <<path>> {
+    // Allow the request if the following conditions are true.
+    allow <<methods>> : if <<condition>>
+  }
+}
+```
+
+Realtime Database - JavaScript like syntax - JSON Structure
+```
+{
+  "rules": {
+    "<<path>>": {
+    // Allow the request if the condition for each method is true.
+      ".read": <<condition>>,
+      ".write": <<condition>>
+      ".validate": <<condition>>
+    }
+  }
+}
+```
+
+Rules are applied as `OR` statements, not `AND` statements.
+
+Implementation Path
+
+1. Integrate the product SDKs
+2. Write your Firebase Security Rules
+3. Test your Firebase Security Rules - Use the emulators to test the app's behavior and validate them before deploying them
+4. Deploy your Firebase Security Rules - Use the firebase console to deploy the rules to production
+
+Warning: If you give access to a higher path level keep in mind that you can not block a subpath later. Structure your rules well!
+
+Realtime Database
+
+There are three basic elements in the rule:
+* Path: The database location
+* Request: read/write grant broad access while validate acts as a secondary verification based on incoming or existing data.
+* Condition: The condition that permist a request if it evaluates to true.
+
+```js
+// If your structure in your database looks like this...
+  {
+    "messages": {
+      "message0": {
+        "content": "Hello",
+        "timestamp": 1405704370369
+      },
+      "message1": {
+        "content": "Goodbye",
+        "timestamp": 1405704395231
+      },
+      ...
+    }
+  }
+```
+
+```js
+// Your rules should look like this!
+  {
+    "rules": {
+      "messages": {
+        "$message": {
+          // only messages from the last ten minutes can be read
+          ".read": "data.child('timestamp').val() > (now - 600000)",
+
+          // new messages must have a string content and a number timestamp
+          ".validate": "newData.hasChildren(['content', 'timestamp']) &&
+                        newData.child('content').isString() &&
+                        newData.child('timestamp').isNumber()"
+        }
+      }
+    }
+  }
+```
+
+*As the example above shows, Realtime Database Rules support a $location variable to match path segments. Use the $ prefix in front of your path segment to match your rule to any child nodes along the path.*
+
+```js
+// Another example
+  {
+    "rules": {
+      "rooms": {
+        // This rule applies to any child of /rooms/, the key for each room id
+        // is stored inside $room_id variable for reference
+        "$room_id": {
+          "topic": {
+            // The room's topic can be changed if the room id has "public" in it
+            ".write": "$room_id.contains('public')"
+          }
+        }
+      }
+    }
+  }
+```
+
+You're changing the rules. The above example let's you change the rules on every `'public'` labeled room. As long as the room_id contains `'public'` you can change the topic. I get it.
+
+You can also use the `$variable` in parallel with constant path names.
+
+```js
+  {
+    "rules": {
+      "widget": {
+        // a widget can have a title or color attribute
+        "title": { ".validate": true },
+        "color": { ".validate": true },
+
+        // but no other child paths are allowed
+        // in this case, $other means any key excluding "title" and "color"
+        "$other": { ".validate": false }
+      }
+    }
+  }
+```
+
+## Rule Types
+
+1. .read - describes if and when data is allowed to be read by users.
+2. .write - describes if and when data is allowed to be written.
+3. .validate - defines what a correctly formatted value will look like, whether it has child attributes, and the data type.
+4. By default, if there isn't a rule allowing it, access at a path is denied.
+
+## Building Conditions
+
+#### Pre-defined Variables
+
+* `now` - current time in milliseconds - works well with `firebase.database.ServerValue.TIMESTAMP`
+* `root` - a `RuleDataSnapshot` of the root path in the database as it exists before the attempted operation.
+* `newData` - a `RuleDataSnapshot` of the data as if it exists after the attempted operation. It includes the new data being written and the existing data.
+* `data` - a `RuleDataSnapshot` of the data as it existed before the attempted operation.
+* $ variables - a wildcard path used to represent ids and dynamic child keys.
+* `auth` - represents an authenticated user's token payload.
+
+These variables can be used anywhere in your rules.
+
+```js
+// Example - data written to the /foo/ node must be a string of less than 100 characters
+{
+  "rules": {
+    "foo": {
+      // /foo is readable by the world
+      ".read": true,
+
+      // /foo is writable by the world
+      ".write": true,
+
+      // data written to /foo must be a string less than 100 characters
+      ".validate": "newData.isString() && newData.val().length < 100"
+    }
+  }
+}
+```
+
+Data Based Rules - Any data that exists in your database can be in your rules!!
+
+Consider this example, which allows write operations as long as the value of the /allow_writes/ node is true, the parent node does not have a readOnly flag set, and there is a child named foo in the newly written data
+
+```js
+".write": "root.child('allow_writes').val() === true &&
+          !data.parent().child('readOnly').exists() &&
+          newData.child('foo').exists()"
+```
+
+Query Based Rules - Use `query.` expressions in your rules to grand read or write access based off of the query parameters.
+
+```js
+"baskets": {
+  ".read": "auth.uid != null &&
+            query.orderByChild == 'owner' &&
+            query.equalTo == auth.uid" // restrict basket access to owner of basket
+}
+```
+
+Based off of the rule above this query would succeed because it has all of the parameters required.
+
+```js
+db.ref("baskets").orderByChild("owner")
+                 .equalTo(auth.currentUser.uid)
+                 .on("value", cb)                 // Would succeed
+```
+
+Based off of the rule above this query would fail with a `PermissionDenied` error.
+
+```js
+db.ref("baskets").on("value", cb)                 // Would fail with PermissionDenied
+```
+
+You can also limit how much a user is allowed to see with the `query` operation.
+
+```js
+// this limiits the read access to only the first 1000 results of a query as ordered by priority
+messages: {
+  ".read": "query.orderByKey &&
+            query.limitToFirst <= 1000"
+}
+
+// Example queries:
+
+db.ref("messages").on("value", cb)                // Would fail with PermissionDenied
+
+db.ref("messages").limitToFirst(1000)
+                  .on("value", cb)                // Would succeed (default order by key)
+```
+
+## Query Based Rule Expressions
+
+* query.orderByKey - Boolean - True for queries ordered by key. False otherwise.
+* query.orderByPriority - Boolean - True for queries ordered by priority. False otherwise.
+* query.orderByValue - Boolean - True for queries ordered by value. False otherwise.
+
+* query.orderByChild - string/null - use a string to represent the path to a child node. EX: `query.orderByChild == "address/zip"` If the query isn't ordered by a child node, this value is null.
+
+* query.startAt -  string/number/boolean/null - Retrieves the bounds of the executing query, or returns null if there is no bound set.
+* query.endAt -  string/number/boolean/null - Retrieves the bounds of the executing query, or returns null if there is no bound set.
+* query.equalTo - string/number/boolean/null - Retrieves the bounds of the executing query, or returns null if there is no bound set.
+
+* query.limitToFirst -  number/null - Retrieves the limit on the executing query, or returns null if there is no limit set.
+* query.limitToLast - number/null - Retrieves the limit on the executing query, or returns null if there is no limit set.
+
+## How Security Rules Work
+
+The following may not seem immediately intuitive, but it is a powerful assistant in the setting up of rules.
+
+```js
+// This security structure allows /bar/ to be read whenever /foo/ contains a child 'baz' with value 'true'
+
+{
+  "rules": {
+     "foo": {
+        // allows read to /foo/*
+        ".read": "data.child('baz').val() === true",
+        "bar": {
+          // ignored, since read was allowed already
+          ".read": false
+        }
+     }
+  }
+}
+```
+
+The `".read": false"` rule under `/foo/bar/` has no effect here, since access cannot be revoked by a child path.
+
+__This is a method in which you could give an administrator access to read data, but not a user__
+
+`.validate` rules do not cascade like this. They have to work at all levels to function properly.
+
+WARNING: You have to give explicit permission to a path otherwise the priveleges will be denied by default. Check out this example!
+
+```js
+// Rules
+{
+  "rules": {
+    "records": {
+      "rec1": {
+        ".read": true
+      },
+      "rec2": {
+        ".read": false
+      }
+    }
+  }
+}
+
+// the parent records was not defined explicitly as having read access, therefore calling it results in an error.
+var db = firebase.database();
+db.ref("records").once("value", function(snap) {
+  // success method is not called
+}, function(err) {
+  // error callback triggered with PERMISSION_DENIED
+});
+
+// in order to actually get the value we want we'd have to access it directly
+var db = firebase.database();
+db.ref("records/rec1").once("value", function(snap) {
+  // SUCCESS!
+}, function(err) {
+  // error callback is not called
+});
+```
+
+
+
+## Database Security Regex
+
+Require a string to be a date formatted as YYYY-MM-DD between 1900-2099:
+`".validate": "newData.isString() && newData.val().matches(/^(19|20)[0-9][0-9][-\\/. ](0[1-9]|1[012])[-\\/. ](0[1-9]|[12][0-9]|3[01])$/)"`
+
+Require string to be an email address:
+`".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"`
+
+Require string to be a basic URL:
+`".validate": "newData.isString() && newData.val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)"`
+
