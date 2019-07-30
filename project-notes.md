@@ -568,6 +568,52 @@ db.ref("records/rec1").once("value", function(snap) {
 });
 ```
 
+# Security Rules and Firebase Authentication
+
+## Identifying Users
+
+The `auth` variable contains the following variables:
+* `auth.uid`: A unique user ID assigned to the requesting user
+* `auth.token`: A map of values collected by Authentication.
+  * `email` - The email address associated with the account - if present
+  * `email_verified` - true if the user has verified they have access to the email address.
+  * `phone_number` - The phone number associated with the account - if present
+  * `name` - The user's display name, if set.
+  * `sub` - The user's Firebase UID. This is unique within a project.
+  * `firebase.identities` - Dictionary of all of the identitites associated with the user.
+    * Keys for identities: email, phone, google.com, facebook.com, github.com, twitter.com
+    * Ex: `auth.token.firebase.identities["google.com"][0]` contains the first Google user ID associated with the account.
+
+When a user is not signed in the auth variable is null.
+
+## Leverage this idea in your rules. __If anyone can post then you can use `auth != null`__
+
+## __Posting for admin `".write": "auth != null && auth.token.isAdmin == true"`__
+
+## Leverage user information in rules
+
+## __Example of only allowing read/write access on a post based off of the user id__
+
+```js
+
+// for our purposes we would use rules - chat - $key - $userId - ".write": "$userId === auth.uid"
+{
+  "rules": {
+    "users": {
+      "$userId": {
+        // grants write access to the owner of this user account
+        // whose uid must exactly match the key ($userId)
+        ".write": "$userId === auth.uid"
+      }
+    }
+  }
+}
+```
+
+
+
+
+
 
 
 
@@ -584,9 +630,9 @@ db.ref("records/rec1").once("value", function(snap) {
 Require a string to be a date formatted as YYYY-MM-DD between 1900-2099:
 `".validate": "newData.isString() && newData.val().matches(/^(19|20)[0-9][0-9][-\\/. ](0[1-9]|1[012])[-\\/. ](0[1-9]|[12][0-9]|3[01])$/)"`
 
-Require string to be an email address:
+## Require string to be an email address:
 `".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"`
 
-Require string to be a basic URL:
+## Require string to be a basic URL:
 `".validate": "newData.isString() && newData.val().matches(/^(ht|f)tp(s?):\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*((0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\+&=%\\$#_]*)?$/)"`
 
