@@ -570,6 +570,15 @@ db.ref("records/rec1").once("value", function(snap) {
 
 
 
+
+
+
+
+
+
+
+
+
 ## Database Security Regex
 
 Require a string to be a date formatted as YYYY-MM-DD between 1900-2099:
