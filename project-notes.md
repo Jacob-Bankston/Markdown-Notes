@@ -610,19 +610,161 @@ When a user is not signed in the auth variable is null.
 }
 ```
 
+## Custom Claims and Security Rules
 
+User roles can be defined for the following common cases:
 
+* Giving a user administrative privileges to access data and resources.
+* Defining different groups that a user belongs to.
+* Providing multi-level access:
+  * __Differentiating paid/upaid subscribers.__ *Different tiers of contributers in the cannon? Gamify the app?*
+  * Differentiating moderators from regular users.
+  * Teacher/student application, etc...
+* Add an additional identifier on a user. For example, a Firebase user could map to a different UID in another system.
 
+## Restricting access to users with the custom claim `admin` could be done as follows
 
+```js
+{
+  "rules": {
+    "adminContent": {
+      ".read": "auth.token.admin === true",
+      ".write": "auth.token.admin === true",
+    }
+  }
+}
+```
 
+## Accessing Custom Claims on the client
 
+```js
 
+// this will display a function called showAdminUI or showRegularUI depending on whether the idTokenResult.claims.admin exists or not
 
+firebase.auth().currentUser.getIdTokenResult()
+  .then((idTokenResult) => {
+     // Confirm the user is an Admin.
+     if (!!idTokenResult.claims.admin) {
+       // Show admin UI.
+       showAdminUI();
+     } else {
+       // Show regular user UI.
+       showRegularUI();
+     }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
 
+### Best Practices: Custom Claims are only used to provide access control, not store additional data.
 
+https://firebase.google.com/docs/auth/admin/custom-claims#defining_roles_via_firebase_functions_on_user_creation
 
+__In this example, custom claims are set on a user on creation using Cloud Functions.__
 
+#### Client side implementation - JavaScript
 
+```js
+const provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider)
+.catch(error => {
+  console.log(error);
+});
+
+let callback = null;
+let metadataRef = null;
+firebase.auth().onAuthStateChanged(user => {
+  // Remove previous listener.
+  if (callback) {
+    metadataRef.off('value', callback);
+  }
+  // On user login add new listener.
+  if (user) {
+    // Check if refresh is required.
+    metadataRef = firebase.database().ref('metadata/' + user.uid + '/refreshTime');
+    callback = (snapshot) => {
+      // Force refresh to pick up the latest custom claims changes.
+      // Note this is always triggered on first call. Further optimization could be
+      // added to avoid the initial trigger when the token is issued and already contains
+      // the latest claims.
+      user.getIdToken(true);
+    };
+    // Subscribe new listener to changes on that node.
+    metadataRef.on('value', callback);
+  }
+});
+```
+
+#### Cloud Functions logic
+
+```js
+const functions = require('firebase-functions');
+
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
+
+// On sign up.
+exports.processSignUp = functions.auth.user().onCreate(event => {
+  const user = event.data; // The Firebase user.
+  // Check if user meets role criteria.
+  if (user.email &&
+      user.email.endsWith('@admin.example.com') &&
+      user.emailVerified) {
+    const customClaims = {
+      admin: true,
+      accessLevel: 9
+    };
+    // Set custom user claims on this newly created user.
+    return admin.auth().setCustomUserClaims(user.uid, customClaims)
+      .then(() => {
+        // Update real-time database to notify client to force refresh.
+        const metadataRef = admin.database().ref("metadata/" + user.uid);
+        // Set the refresh time to the current UTC timestamp.
+        // This will be captured on the client to force a token refresh.
+        return metadataRef.set({refreshTime: new Date().getTime()});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+});
+```
+
+#### Database rules
+
+```js
+{
+  "rules": {
+    "metadata": {
+      "$user_id": {
+        // Read access only granted to the authenticated user.
+        ".read": "$user_id === auth.uid",
+        // Write access only via Admin SDK.
+        ".write": false
+      }
+    }
+  }
+}
+```
+
+## Adding a check to the Database Rules
+
+Read only priveleges on a page
+
+```js
+{
+  "rules": {
+    "metadata": {
+      "$user_id": {
+        // this could be false as it is only accessed from backend or rules.
+        ".read": "$user_id === auth.uid",
+        ".write": "false",
+      }
+    }
+  }
+}
+```
 
 
 ## Database Security Regex
