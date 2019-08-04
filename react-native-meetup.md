@@ -16,6 +16,10 @@ A UI Kit for different things to include in your application
 
 A wrapper to allow more interactions and calls for specific sections of your application. Allows you do compartmentalize the different portions of your application.
 
+## Expo Tabs
+
+Gives you a template with multiple pages on your application with tabs on the bottom of the application.
+
 ## AWS Amplify
 
 There are a lot of features to the web services that are similar to the services from Google like Firebase
@@ -37,6 +41,11 @@ Follow the steps through the get started
 * set up your amplify configuration in the main application file
 * import amplify from aws-amplify
 * import aws from aws-exports
+* Implement the authenticator tool with aws
+
+Once you finish with setting up go back through the query documentation on react relay - useQuery information
+* get the query information for the application from react relay
+* get the specific list query and import that as well
 
 ## React Relay
 
@@ -44,3 +53,6 @@ The service to communicate from our application to the database.
 
 Follow the steps to get started in the [docs](https://relay.dev/docs/en/introduction-to-relay)
 
+## Web Sockets
+
+The features we worked with today handle a lot of the issues that you would have with web sockets for you.
