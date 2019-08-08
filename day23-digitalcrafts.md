@@ -51,7 +51,7 @@ Step 11: Make sure that you are returning something!!
 
 Client Side
 Step 12: Fetch the information
-* `fetch('http://localhost:3000/users', {method: 'POST', body: JSON.stringify({})}).then(json => {if(json.scucess == true) { //update}}
+* `fetch('http://localhost:3000/users', {method: 'POST', body: JSON.stringify({})}).then(json => {if(json.success == true) { //update}}
 )`
 
 Step 13: You can also send a error message!
