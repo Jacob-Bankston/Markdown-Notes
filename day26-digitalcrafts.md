@@ -107,12 +107,27 @@ http.listen(3000, () => {  // when you run a socket you have to change app.liste
 })
 
 ```
+You can use mustache, but it will be a weird experience if there is a form posting because it will refresh the page every time that a user posts.
+
+```html
+<html>
+    <body>
+
+        <ul id="chatMessagesUL" style="background-color: green">
+          Chat messages will display here
+        </ul>
+
+        <input type="text" id="chatMessageTextBox" />
+        <button id="sendButton">Send</button>
+        <!-- This reference has to be made before the client.js file, otherwise the file won't know about sockets. -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/client.js"></script>
+    </body>
+</html>
+```
 
 ```js
 // client.js
-
-// You can use mustache, but it will be a weird experience if there 
-// is a form posting because it will refresh the page every time that a user posts
 
 let socket.io()
 
@@ -130,19 +145,59 @@ sendButton.addEventListener('click', () => {
 
 ```
 
-```html
-<html>
-    <body>
+```js
+// app.js
 
-        <ul id="chatMessagesUL" style="background-color: green">
-          Chat messages will display here
-        </ul>
+const express = require('express')
+const app = express()
+const http = require('http').createServer(app)
 
-        <input type="text" id="chatMessageTextBox" />
-        <button id="sendButton">Send</button>
-        <!-- This reference has to be made before the client.js file, otherwise the file won't know about sockets. -->
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/client.js"></script>
-    </body>
-</html>
+app.use('/js', express.static('public'))
+
+const io = require('socket.io')(http)
+
+io.on('connection', (socket) => {
+    console.log("You are connected")
+
+    // this is how you can make the server care about the client.js user input
+    socket.on('Houston', (message) => { 
+        console.log(message) // this will take the message from the client and print it to the console
+
+        // Then you have to send the message to the specific event
+        // This will send the message back to the client/users
+        io.emit('Houston', message)
+    })
+})
+
+app.get('/', (req,res) => {
+    res.sendFile(__dirname + '/chat.html')
+})
+
+http.listen(3000, () => {
+
+})
+
+```
+
+```js
+// client.js
+
+let socket.io()
+
+let chatMessageTextBox = document.getElementById('chatMessageTextBox')
+let sendButton = document.getElementById('sendButton')
+let chatMessagesUL = document.getElementById('chatMessagesUL')
+
+sendButton.addEventListener('click', () => {
+
+    let chatMessage = chatMessageTextBox.value
+    socket.emit('Houston', chatMessage)
+})
+
+socket.on('Houston', (message) => { 
+    // inserting the chat message into the index window
+    let messageLI = `<li>${message}</li>`
+    chatMessagesUL.insertAdjacentHTML('beforeend', messageLI)
+})
+
 ```
