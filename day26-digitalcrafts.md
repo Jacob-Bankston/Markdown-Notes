@@ -201,3 +201,13 @@ socket.on('Houston', (message) => {
 })
 
 ```
+
+Don't use POST or GET requests because it will refresh every time this happens.
+
+Things to Add!
+* Authentication
+* User limitations
+
+Sockets are for when you need to be completely connected to the server at all times. `ws`
+
+Examples: Ring Doorbell, Cameras outside, Cars data output, Chat applications, Notification systems, Blockchain
