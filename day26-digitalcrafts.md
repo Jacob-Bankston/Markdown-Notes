@@ -211,3 +211,12 @@ Things to Add!
 Sockets are for when you need to be completely connected to the server at all times. `ws`
 
 Examples: Ring Doorbell, Cameras outside, Cars data output, Chat applications, Notification systems, Blockchain
+
+Assignment: Advanced Trips Application - Adding Chat Features!
+
+Look at Azam's Udemy course and check out the section that includes `res.locals.username`
+
+He goes over the conditional statements in mustache as well.
+{{#isAuthenticated}}
+{{/isAuthenticated}}
+{{^isAuthenticated}}
