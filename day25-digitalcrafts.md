@@ -472,8 +472,23 @@ partials/menu.mustache
 </header>
 ```
 
-## Assignment
+## Debugging Node.js
 
+Run: `node --inspect-brk app.js`
+
+node - declaring that you're targeting node
+--inspect - you're inspecting the node
+-brk - you're targeting the break point in the file
+app.js - whatever file that you want to targeting
+
+Go to the URL: `chrome://inspect`
+This will show you connected devices and remote devices
+
+You can then open the debugger tool!
+
+
+## Assignment
+* Recreate the Trips Project and add a session interface
 
 * Main Project - Week after Next - Back End Project - Randomized Team
 
