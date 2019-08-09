@@ -2,9 +2,9 @@
 
 ## Databases
 * MS SQL
-* Postgres
+* Postgre
 * MY SQL
-* SRLLITE
+* SQLITE
 
 #### Relational Databases
 

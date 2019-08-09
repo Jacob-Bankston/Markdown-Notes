@@ -82,7 +82,7 @@ You have to site the session in each area that you want to input the information
 app.post('/register', (req,res) => {
 
     let username = req.body.username
-    let passowrd = req.body.passowrd
+    let password = req.body.password
 
     let user = {username: username, password: password}
     // in a real application you'd check against other usernames
@@ -425,7 +425,7 @@ add-trip.mustache
     <input type="text" name="tripName" placeholder="Enter name"/>
     <input type="text" name="tripDate" placeholder="Enter date" />
     <input type="text" name="tripImageURL" placeholder="Enter image url" />
-    <input type="checkbox" name="favouriteTrip" />
+    <input type="checkbox" name="favoriteTrip" />
     <input type="submit" />
 
    </form>
