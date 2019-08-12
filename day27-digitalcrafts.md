@@ -175,3 +175,16 @@ app.get('/', req,res) => {
     res.render('index')
 }
 ```
+
+`SELECT tripid, title, body FROM trips ORDER BY tripid DESC;` This is how you would choose how to filter your data!
+
+`SELECT tripid, title, body FROM trips ORDER BY title DESC;` You can order by any of the headers!
+
+`SELECT COUNT(tripid) tripid, title, body FROM trips GROUP BY title;` You can count the number of trips and sort by the groups that you can use.
+
+Make sure that you are encrypting passwords and securing data!
+
+__Create blog posts about all of the projects that you make__
+__Best Way to Learn series__
+
+__Atomic Habits__ - Book that Azam recommends!
