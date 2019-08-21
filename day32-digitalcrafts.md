@@ -66,3 +66,10 @@ This won't do anything, but it will keep your repository clean!
 A fork is a clone of the repository, but you are changing the direction that the code is written in!
 *An example would be...*
 __Google is making an android functionality. Samsung likes the information, and takes their initial information, and modifying it with what they want to do with the information after the fact.__
+
+##Cloning the repository
+
+When working on a group you will have the group clone the repository.
+You will not download the zip folder, you wouldn't get any changes from the rest of the group.
+One person will be the owner of the repository, and everyone else in the group will clone the repository!
+This way if someone will push something and you use git pull you will then get that information.
