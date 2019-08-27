@@ -171,7 +171,38 @@ Remote interview challenge during the week. HIGHLY ENCOURAGED!
 * angel.io
 * LinkedIn
 * weworkremotely.com
-* 
+* government sites - lots of headache applying - sometimes they will interview people just to say they did, even when they aren't looking
+* Business Website - They usually will have a careers page that you will go through
+
+## LinkedIn Profiles
+* When you are interviewing for a company, try to find someone who works at that company
+  * Find a person who spoke at the conference and research a bit to find out how they work
+
+## Search for a custom domain name
+* hover - search for your domain
+  * CNAME - www jacobbankston.github.io
+* github pages - the live website version of your github repository
+* FTP is very common
+* Heroku might be an overkill for your portfolio
+
+## Contacting Interviewers
+* After you interview, it's always a good idea to send them a thank you email/card/video to differentiate you from other applicants
+* If you don't get a response from the person right away, it is up to you to reach out to them to see where you are at in the process
+
+## Tech Recruiters
+* When you are working with a recruiter they will get a percentage of the wages
+* When you become a full hire after contract work, the recruiter no longer gets a portion of a Salary
+
+## Blogs
+* You won't see a big result from a blog for a few years. It's about the long game. Keep at it!
+
+## Conferences
+* There are a lot of benefits to people that are first time speakers at conference events, so seek these out!
+
+## Burnout
+* Take all of your vacation time!! It's there to prevent you from being burnt out. Relax. Don't answer business issues on vacation.
+* When you're stuck on a problem go walk around, go to a gym, something.
+* Binging Netflix is not recharging time. Spend time doing things away from a screen.
 
 ## To Do For This Week!
 
