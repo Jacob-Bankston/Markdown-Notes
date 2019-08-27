@@ -130,3 +130,110 @@ It is okay to struggle. This is the normal and common feeling for learning new t
 Don't try to compare yourself with another person. In the long game, it is the people who are persistent and dedicated that will succeed in the end. The short term game is not going to do anything for you in the larger scope of things.
 
 Always think about the long term benefits, that's how you will succeed.
+
+## Applying
+Send in your resume and cover letter tailored to each and every job. Spend the time to hit up 15 jobs applications in a day over sending out 100 of the same resume.
+
+## Career Services and Job Search Tools
+There's a lot of resources from the folder inside the Resume Resources and Portfolio Resources. Seek out opportunities to network, get business cards and use the team at Digital Crafts for support.
+
+## Business Cards 
+You want to put your portfolio on your business card and limit the number of ways to reach out and contact you on it.
+
+## Mock Interviews
+Remote interview challenge during the week. HIGHLY ENCOURAGED!
+
+## Junior Developer Expectations
+* You are to be able to absorb as much knowledge as possible.
+* Incentives for company:
+  * Grooming - trying to train as a Junior Developer to stay at the company
+  * Lower Salary - not having to pay you the senior Salary
+  * In House Training - Familiarizing the employee with the systems that their company uses
+  * The longer you stay at a company, the more that you climb the corporate ladder, the more vacation time, etc...
+* Start understanding the domain of the business
+  * Anyone can write code, but there are very few developers that understand the purpose behind the code that they're building
+  * The ability to know someone's needs and be able to solve their problem with code is why we all get paid
+* 
+
+## Learning as you need it
+* Build a Project - When you need to learn something, pick it up as you go.
+  * Long gone are the days where you need to read an entire technical book to get through the materials
+  * This is the fastest way to learn anything
+  * Examples - To Do List, Grocery List, etc...
+* Newsletters - Keeping up with a newsletter to stay in touch with updates with the technology that you are trying to learn
+* Podcasts - Find a podcast that gives you the knowledge that you might not hear otherwise
+* Books - Even if you aren't reading technical books, read self help motivational books
+
+## Find a Job
+* indeed.com
+* google jobs search
+* glassdoor
+* angel.io
+* LinkedIn
+* weworkremotely.com
+* 
+
+## To Do For This Week!
+
+1. Create a Portfolio Website
+   1. Purchased Template!
+   2. About Me Page
+      1. About Me Section
+      2. What I'm Doing Section
+      3. Testimonials Section
+      4. Languages/Frameworks Section
+   3. Resume Page
+      1. Education
+      2. Experience
+      3. Projects
+      4. Languages
+   4. Portfolio Page
+      1. Linked Projects
+      2. Categories to sort projects
+   5. Blog Page
+      1. Linked Blog posts
+   6. Contact Page
+      1. Reset location
+2. Polish your Resume
+   1. Add recent projects
+   2. Rephrase Project Section
+   3. Rephrase Volunteering Section
+   4. Optimize with a variety of projects
+3. Polish your Linked In
+   1. Go through the 15 steps to optimize the Linked In profile
+   2. Finish Testimonials for everyone
+4. Polish your Readme files on GitHub
+   1. Research animated images for github to add to the Readme files
+5. Write out blog posts
+   1. Best Way to Learn Node.js
+   2. Best Way to Learn PostgreSQL
+   3. Best Way to Learn HTML
+   4. Best Way to Learn CSS
+      1. Best Way to Learn CSS Flexbox
+      2. Best Way to Learn CSS Grid
+   5. Best Way to Learn JavaScript Fundamentals
+   6. Best Way to Learn JavaScript ES6
+   7. Best Way to Learn Markdown
+   8. Best Way to Build a Web Presence on Twitter
+      1. Find a community
+      2. Stay consistent
+      3. Be Supportive
+      4. How frequently should I post? What should I post?
+   9.  Best Way to Build up connections on Linked In
+      5.  Add in person
+      6.  Go to meetups
+          1.  Eventbrite.com
+          2.  Meetup.com
+      7. Mental game
+      8. How frequently should I post? What should I post?
+   10. Set Up Node.js
+      9. Go through all of the steps to install and set up express and all of the routes that you should take for the basic structure
+   11. Set Up HTML5
+      10. Go through all of the steps to set up the framework for the HTML file for the basic structure
+   12. Set Up CSS
+      11. Go through all of the steps to set up the framework for a responsive website basic structure
+   13. Set Up Mustache Templates
+      12. Go through all of the additional routing for mustache template views and partials
+   14. 
+6. Work on Interview Cake Prep
+
