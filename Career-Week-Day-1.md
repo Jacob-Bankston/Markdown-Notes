@@ -204,6 +204,13 @@ Remote interview challenge during the week. HIGHLY ENCOURAGED!
 * When you're stuck on a problem go walk around, go to a gym, something.
 * Binging Netflix is not recharging time. Spend time doing things away from a screen.
 
+## Design Patterns
+* Go through and learn about one design per week
+  * MVC - this is the most common and most important
+  * Singleton is another common one
+* This is not super important, so don't stress too much about it, just build up your familiarity over time.
+* Find a great resource at https://refactoring.guru/
+
 ## To Do For This Week!
 
 1. Create a Portfolio Website
