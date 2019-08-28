@@ -177,3 +177,13 @@ Include 2 to 4 projects in the resume, no more than 4!
 * Hard to read or tiny fonts
 * False information
 
+## Common Questions
+
+* Iconography (Symbols, Logos)
+  * Ends up taking up a lot of time!
+* Importance
+    1. Resume - [Get the ATS Resume Information done first before the stylish resume!]
+    2. LinkedIn - Enable Project Section!
+    3. GitHub
+    4. Portfolio
+    5. Cover Letter
