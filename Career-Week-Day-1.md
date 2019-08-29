@@ -211,6 +211,16 @@ Remote interview challenge during the week. HIGHLY ENCOURAGED!
 * This is not super important, so don't stress too much about it, just build up your familiarity over time.
 * Find a great resource at https://refactoring.guru/
 
+## Hosting your site 
+
+Once you have your Domain registered the next steps are simple
+
+GitHub Pages
+* in the repository activate github pages
+* go to custom domain settings
+* Get your ns1 and ns2
+* Create a CNAME for the url!
+
 ## To Do For This Week!
 
 1. Create a Portfolio Website
@@ -253,25 +263,14 @@ Remote interview challenge during the week. HIGHLY ENCOURAGED!
    6. Best Way to Learn JavaScript ES6
    7. Best Way to Learn Markdown
    8. Best Way to Build a Web Presence on Twitter
-      1. Find a community
-      2. Stay consistent
-      3. Be Supportive
-      4. How frequently should I post? What should I post?
    9.  Best Way to Build up connections on Linked In
-      5.  Add in person
-      6.  Go to meetups
-          1.  Eventbrite.com
-          2.  Meetup.com
-      7. Mental game
-      8. How frequently should I post? What should I post?
    10. Set Up Node.js
-      9. Go through all of the steps to install and set up express and all of the routes that you should take for the basic structure
+      1. Go through all of the steps to install and set up express and all of the routes that you should take for the basic structure
    11. Set Up HTML5
-      10. Go through all of the steps to set up the framework for the HTML file for the basic structure
+      2.  Go through all of the steps to set up the framework for the HTML file for the basic structure
    12. Set Up CSS
-      11. Go through all of the steps to set up the framework for a responsive website basic structure
+      3.  Go through all of the steps to set up the framework for a responsive website basic structure
    13. Set Up Mustache Templates
-      12. Go through all of the additional routing for mustache template views and partials
-   14. 
+      4.  Go through all of the additional routing for mustache template views and partials
 6. Work on Interview Cake Prep
 
