@@ -92,7 +92,7 @@ NOTE: Mental Practice is as effective as Actual Practice, do both!
     * Practice Algorithms - Practice makes perfect! Keep up with your instructor!
     * Continue Learning - Keep up with your self learning and reinforcement!! Find things you're fascinated in!!
 * Networking!
-  * Cold Call
+  * Cold Call - Cold emailing is a lot more warm than actually calling them! Find them on LinkedIn or their company website!
     * Reach out to companies via contact page or phone
   * LinkedIn
     * Update your account. Reach out!
