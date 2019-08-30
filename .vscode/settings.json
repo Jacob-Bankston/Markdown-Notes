@@ -6,5 +6,6 @@
         "postid",
         "userid"
     ],
-    "cSpell.enabled": true
+    "cSpell.enabled": true,
+    "editor.acceptSuggestionOnEnter": "off"
 }
