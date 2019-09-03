@@ -179,3 +179,125 @@ export default Greet
 
 You pass the properties from the App.js and you can insert them in the Greet.js file by using `this.props` functionality.
 
+## State
+
+State is used to control the state of the component.
+When you refresh it clears out the local state. The state is only available by the component itself (until we get to Redux and the global state).
+
+Add a constructor inside of the App Component!
+
+```js
+import React from 'react';
+class App extends Component {
+
+    constructor() {
+      // it's a requirement that you have to call the super() class because it has to inherit traits from parents and component
+      super(props) // calling the parent class constructor
+
+      // state is nothing more than an empty object
+      this.state = {
+          counter: 0
+          name: "Alex"
+      }
+    }
+
+    // implementing the counter function!
+    // Whenever you are using Reactive programming you will never change the state, you will create a new state!
+
+    // Bad example!
+    // incrementCounter() {
+    //     console.log('increment counter')
+    //     this.state.counter += 1
+    // }
+
+    // Bad example 2!
+    // If you use normal method like functions it will not know what 'this' is!
+    // In this situation 'this' is undefined.
+    incrementCounter() {
+        console.log('increment counter')
+        this.setState({
+            counter: 1
+        })
+    }
+
+    render() {
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <Greet name = "Mary" catName = "Furry" />
+                </div>
+        )
+    }
+}
+export default App
+```
+
+```js
+import React from 'react';
+class App extends Component {
+    constructor() {
+      super(props)
+      this.state = {
+          counter: 0
+          name: "Alex"
+      }
+
+      // inside the constructor we know that the value of this is defined!
+      // we are telling incrementCounter to use the value of 'this' when it was NOT undefined.
+      this.incrementCounter = this.incrementCounter.bind(this)
+
+    }
+
+    // because of the set up in the constructor, this is now defined!
+    // you can completely bypass this by using an anonymous arrow function.
+    incrementCounter() {
+        console.log('increment counter')
+        this.setState({
+            counter: 1
+        })
+    }
+
+    render() {
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <Greet name = "Mary" catName = "Furry" />
+                </div>
+        )
+    }
+}
+export default App
+```
+
+```js
+import React from 'react';
+class App extends Component {
+    constructor() {
+      super(props)
+      this.state = {
+          counter: 0
+          name: "Alex"
+      }
+    }
+
+    incrementCounter = () => {
+        console.log('increment counter')
+        this.setState({
+            counter: 1
+        })
+    }
+
+    render() {
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <Greet name = "Mary" catName = "Furry" />
+                </div>
+        )
+    }
+}
+export default App
+```
