@@ -282,6 +282,7 @@ class App extends Component {
       }
     }
 
+    // anonymous arrow functions know the correct state of 'this'!
     incrementCounter = () => {
         console.log('increment counter')
         this.setState({
@@ -301,3 +302,160 @@ class App extends Component {
 }
 export default App
 ```
+
+__Whenever you set the state, it will automatically call the render function.__
+
+You can not set the state inside of the render function because of this! It will crash your app!
+
+```js
+import React from 'react';
+class App extends Component {
+    constructor() {
+      super(props)
+      this.state = {
+          counter: 0
+          name: "Alex"
+      }
+    }
+
+    incrementCounter = () => {
+        console.log('increment counter')
+        this.setState({
+            counter: counter + 1
+        })
+    }
+
+    // adding in the value of state into the view of the component!
+
+    render() {
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <h1>{this.state.counter}</h1>
+                    <h3>{this.state.name}</h3>
+                    <Greet name = "Mary" catName = "Furry" />
+                </div>
+        )
+    }
+}
+export default App
+```
+
+Adding in APIs to call in!
+
+```js
+import React from 'react';
+class App extends Component {
+    constructor() {
+      super(props)
+      this.state = {
+          counter: 0
+          name: "Alex"
+          // adding a photos array!
+          photos: []
+      }
+      // adding a this for fetchPhotos
+      this.fetchPhotos()
+    }
+
+    fetchPhotos = () {
+        fetch('https://jsonplaceholder.typicode.com/photos')
+        .then(response => response.json())
+        .then(photos => {
+            // always use setState! Don't use this.state.props, you want to create a new state object!
+            this.setState({
+                photos: photos
+            })
+            console.log(photos)
+        })
+    }
+
+    incrementCounter = () => {
+        console.log('increment counter')
+        this.setState({
+            counter: counter + 1
+        })
+    }
+
+    // adding in the value of state into the view of the component!
+    render() {
+
+        let photoItems = this.state.photos.map(photo => {
+            // this looks like template literals, but they're JSX items!
+            // try to give each div a unique id to differentiate between them
+            return  <div key={photo.id}>
+                        <img src={photo.thumbnailURL} />
+                        {photo.title}
+                    </div>
+        })
+
+        // adding photoItems into the return statement!
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <h1>{this.state.counter}</h1>
+                    <h3>{this.state.name}</h3>
+                    <Greet name = "Mary" catName = "Furry" />
+                    {photoItems}
+                </div>
+        )
+    }
+}
+export default App
+```
+
+Note: This is going to be super slow because it is doing 5000 requests for each image in the API call.
+
+To improve this code you can break it down into a new component!
+
+PhotoList.js
+```js
+import React, {Component} from 'react'
+
+class PhotoList extends Component {
+    render() {
+        return <div>PhotoList</div>
+    }
+}
+
+export default PhotoList
+```
+
+Remember, the purpose of this component is just to display the photos! It should only have one jo.
+If you make it fetch the photos then you can not reuse it!
+
+```js
+// App.js return function in the render!
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <<button onClick={this.incrementCounter}>Increment Counter</button>
+                    <h1>{this.state.counter}</h1>
+                    <h3>{this.state.name}</h3>
+                    <Greet name="Mary" catName="Furry" />
+                    <PhotoList photos={this.state.photos} />
+                </div>
+        )
+```
+
+```js
+import React, {Component} from 'react'
+
+class PhotoList extends Component {
+    render() {
+        let photoItems = this.props.photos.map(photo => {
+            return <div>{photo.title}</div>
+        })
+        return <div>{photoItems}</div>
+    }
+}
+export default PhotoList
+```
+
+__SRP Single Responsibility Principal: When you create a function or a component, make sure that it has one and only one job.__
+
+## Concepts that are important!
+* Always call setState and make a brand new state object. Never use this.state.props for this
+* SRP - Single Responsibility Principal
