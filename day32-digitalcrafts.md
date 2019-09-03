@@ -123,6 +123,7 @@ Importing the new component!
 import React from 'react';
 class App extends Component { 
     render() {
+         // adding the component file in here!
         return  (
                 <div>
                     <div>Hello World</div>
@@ -140,4 +141,41 @@ Now you have an App component that has a child component, the Greet component!
 React is replacing things in the Virtual DOM, which is how it is able to update quickly for the user.
 
 ## Properties - aka props
+
+The parent component can send information to the children!
+
+The children can send information to the parent, or siblings, but they shouldn't talk to each other.
+
+It becomes super complicated.
+
+
+```js
+import React from 'react';
+class App extends Component { 
+    render() {
+        return  (
+                <div>
+                    <div>Hello World</div>
+                    <div>Hello World</div>
+                    <Greet name = "Mary" catName = "Furry" />
+                </div>
+        )
+    }
+}
+export default App
+```
+
+```js
+import React, {Component} from 'react';
+class Greet extends Component {
+    render() {
+        return (
+            <h1>Hello {this.props.name} and the pet name is {this.props.catName}</h1>
+        )
+    }
+}
+export default Greet
+```
+
+You pass the properties from the App.js and you can insert them in the Greet.js file by using `this.props` functionality.
 
