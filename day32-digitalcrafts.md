@@ -23,10 +23,11 @@ One of the coolest features of testing React applications is that it will load t
 ## Components
 
 Each different aspect of the application are components.
-* Header Component
-* Sidebar Component
-* Footer Component
-* Main Content Component
+
+- Header Component
+- Sidebar Component
+- Footer Component
+- Main Content Component
 
 Everything that you design will be a component.
 
@@ -37,28 +38,28 @@ There is a `<div id="root">` at thee top of the index.html file. The idea is Rea
 Instead of using the notation of `const express = require('express')` there is a new updated way to import frameworks and files.
 
 ```js
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import logo from "./logo.svg";
 ```
 
 ## Example App.js
 
 ```js
-import React from 'react'; // we're importing React from the react framework
+import React from "react"; // we're importing React from the react framework
 
-class App { }// this app will be a component! It has to first inherit the functionality of a Component via 'extends'
+class App {} // this app will be a component! It has to first inherit the functionality of a Component via 'extends'
 ```
 
 ```js
-import React from 'react';
+import React from "react";
 // the App class is inheriting from the Component Class.
-class App extends Component { // it has to inherit these traits or it can't be displayed.
-
+class App extends Component {
+  // it has to inherit these traits or it can't be displayed.
 }
 
 // this makes sure that the App class is accessible from outside of the file.
 // making sure that other files can import App into them.
-export default App
+export default App;
 ```
 
 The components are created with Capital letters by choice, but it is the industry standard. You need to make sure that you capitalize the first letter of all of your components.
@@ -66,18 +67,16 @@ The components are created with Capital letters by choice, but it is the industr
 The `render` function will tell your application what to render to the screen.
 
 ```js
-import React from 'react';
-class App extends Component { 
-
-    // html here is called JSX!
-    // JSX will allow you to return HTML from JavaScript
-    render() {
-        return <div></div>
-    }
-
+import React from "react";
+class App extends Component {
+  // html here is called JSX!
+  // JSX will allow you to return HTML from JavaScript
+  render() {
+    return <div></div>;
+  }
 }
 
-export default App
+export default App;
 ```
 
 Install React Developer Tools! New updates are interesting to try and sift through, so let's struggle and learn together!
@@ -87,18 +86,18 @@ Without the React Developer Tools you will be "super completely lost"
 Whenever you build the UI in react, you will build it in the render function!
 
 ```js
-import React from 'react';
-class App extends Component { 
-    render() {
-        return  (
-                <div>
-                    <div>Hello World</div>
-                    <div>Hello World</div>
-                </div>
-        )
-    }
+import React from "react";
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <div>Hello World</div>
+        <div>Hello World</div>
+      </div>
+    );
+  }
 }
-export default App
+export default App;
 ```
 
 You want to motivate people to not refresh the page. Think about your application in components.
@@ -106,34 +105,32 @@ You want to motivate people to not refresh the page. Think about your applicatio
 ## Greet.js
 
 ```js
-import React, {Component} from 'react';
+import React, { Component } from "react";
 class Greet extends Component {
-    render() {
-        return (
-            <h1>Greet</h1>
-        )
-    }
+  render() {
+    return <h1>Greet</h1>;
+  }
 }
-export default Greet
+export default Greet;
 ```
 
 Importing the new component!
 
 ```js
-import React from 'react';
-class App extends Component { 
-    render() {
-         // adding the component file in here!
-        return  (
-                <div>
-                    <div>Hello World</div>
-                    <div>Hello World</div>
-                    <Greet />
-                </div>
-        )
-    }
+import React from "react";
+class App extends Component {
+  render() {
+    // adding the component file in here!
+    return (
+      <div>
+        <div>Hello World</div>
+        <div>Hello World</div>
+        <Greet />
+      </div>
+    );
+  }
 }
-export default App
+export default App;
 ```
 
 Now you have an App component that has a child component, the Greet component!
@@ -148,33 +145,34 @@ The children can send information to the parent, or siblings, but they shouldn't
 
 It becomes super complicated.
 
-
 ```js
-import React from 'react';
-class App extends Component { 
-    render() {
-        return  (
-                <div>
-                    <div>Hello World</div>
-                    <div>Hello World</div>
-                    <Greet name = "Mary" catName = "Furry" />
-                </div>
-        )
-    }
+import React from "react";
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <div>Hello World</div>
+        <div>Hello World</div>
+        <Greet name="Mary" catName="Furry" />
+      </div>
+    );
+  }
 }
-export default App
+export default App;
 ```
 
 ```js
-import React, {Component} from 'react';
+import React, { Component } from "react";
 class Greet extends Component {
-    render() {
-        return (
-            <h1>Hello {this.props.name} and the pet name is {this.props.catName}</h1>
-        )
-    }
+  render() {
+    return (
+      <h1>
+        Hello {this.props.name} and the pet name is {this.props.catName}
+      </h1>
+    );
+  }
 }
-export default Greet
+export default Greet;
 ```
 
 You pass the properties from the App.js and you can insert them in the Greet.js file by using `this.props` functionality.
@@ -303,7 +301,7 @@ class App extends Component {
 export default App
 ```
 
-__Whenever you set the state, it will automatically call the render function.__
+**Whenever you set the state, it will automatically call the render function.**
 
 You can not set the state inside of the render function because of this! It will crash your app!
 
@@ -411,16 +409,17 @@ Note: This is going to be super slow because it is doing 5000 requests for each 
 To improve this code you can break it down into a new component!
 
 PhotoList.js
+
 ```js
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
 class PhotoList extends Component {
-    render() {
-        return <div>PhotoList</div>
-    }
+  render() {
+    return <div>PhotoList</div>;
+  }
 }
 
-export default PhotoList
+export default PhotoList;
 ```
 
 Remember, the purpose of this component is just to display the photos! It should only have one jo.
@@ -441,21 +440,22 @@ If you make it fetch the photos then you can not reuse it!
 ```
 
 ```js
-import React, {Component} from 'react'
+import React, { Component } from "react";
 
 class PhotoList extends Component {
-    render() {
-        let photoItems = this.props.photos.map(photo => {
-            return <div>{photo.title}</div>
-        })
-        return <div>{photoItems}</div>
-    }
+  render() {
+    let photoItems = this.props.photos.map(photo => {
+      return <div>{photo.title}</div>;
+    });
+    return <div>{photoItems}</div>;
+  }
 }
-export default PhotoList
+export default PhotoList;
 ```
 
-__SRP Single Responsibility Principal: When you create a function or a component, make sure that it has one and only one job.__
+**SRP Single Responsibility Principal: When you create a function or a component, make sure that it has one and only one job.**
 
 ## Concepts that are important!
-* Always call setState and make a brand new state object. Never use this.state.props for this
-* SRP - Single Responsibility Principal
+
+- Always call setState and make a brand new state object. Never use this.state.props for this
+- SRP - Single Responsibility Principal
