@@ -480,3 +480,28 @@ Same Assignment with additional features
 
 * Create Separate pages for adding, viewing the books using React Router
 * Allow the user to filter books based on the genre
+
+## Staying in Houston - What to Learn
+
+#### Languages or Things to know!
+* Angular is important
+* DotNet is important
+* Machine Learning is a completely different field, but it will be super important over the next 10 years!!
+
+
+#### Books
+
+Over your career, make sure that you are continuously reading and learning new information from books!
+
+* The Compount Effect - Jumpstart Your Income, Your Life, Your Success By: Darren Hardy
+* Essentialism: 
+* The Power of a Positive No: How to Say No and Still Get to Yes By: William Ury and Random House Audio
+* Atomic Habits - James Clear
+
+* Robert Martin - Uncle Bob - Clean Code
+* Martin Fowler - Always Good Architecture Related Topics - Refactoring: Improving the Design of Existing Code (2nd Edition)
+
+* The 5-Hour Rule Used By Bill Gates, James Ma and Elon Musk
+  * They Read 5 hours a week.
+  * Reflect on the information.
+  * Experiment with what you just read.
