@@ -494,7 +494,7 @@ Same Assignment with additional features
 Over your career, make sure that you are continuously reading and learning new information from books!
 
 * The Compount Effect - Jumpstart Your Income, Your Life, Your Success By: Darren Hardy
-* Essentialism: 
+* Essentialism: The Disciplined Pursuit of Less By: Greg McKeown
 * The Power of a Positive No: How to Say No and Still Get to Yes By: William Ury and Random House Audio
 * Atomic Habits - James Clear
 
