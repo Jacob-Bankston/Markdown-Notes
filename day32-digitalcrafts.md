@@ -459,3 +459,5 @@ export default PhotoList;
 
 - Always call setState and make a brand new state object. Never use this.state.props for this
 - SRP - Single Responsibility Principal
+- SPA - Single Page Application
+- Virtual DOM - A simulated DOM model that will update throughout the process
