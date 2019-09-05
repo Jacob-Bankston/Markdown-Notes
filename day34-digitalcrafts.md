@@ -425,12 +425,11 @@ ReactDOM.render(
 
 ```js
 export class BookDetail extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props)
-
-        console.log(props) // checking whether we're at the correct 
-    }
+    console.log(props); // checking whether we're at the correct
+  }
 
   render() {
     return <div>BookDetail</div>;
@@ -439,20 +438,20 @@ export class BookDetail extends Component {
 ```
 
 In Developer Tools!
-* Go to Developer Tools
-* Go to file in the component sources
-* Select the debugger
-* Refresh for the props
-* in the console go through to find where you can get the book id!
+
+- Go to Developer Tools
+- Go to file in the component sources
+- Select the debugger
+- Refresh for the props
+- in the console go through to find where you can get the book id!
 
 ```js
 export class BookDetail extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props)
-
-        console.log(props.match.params.bookId) // get the bookId from the url
-    }
+    console.log(props.match.params.bookId); // get the bookId from the url
+  }
 
   render() {
     return <div>BookDetail</div>;
@@ -478,30 +477,368 @@ Make sure that you're spending the time to practice these things! React is very 
 
 Same Assignment with additional features
 
-* Create Separate pages for adding, viewing the books using React Router
-* Allow the user to filter books based on the genre
+- Create Separate pages for adding, viewing the books using React Router
+- Allow the user to filter books based on the genre
 
 ## Staying in Houston - What to Learn
 
 #### Languages or Things to know!
-* Angular is important
-* DotNet is important
-* Machine Learning is a completely different field, but it will be super important over the next 10 years!!
 
+- Angular is important
+- DotNet is important
+- Machine Learning is a completely different field, but it will be super important over the next 10 years!!
 
 #### Books
 
 Over your career, make sure that you are continuously reading and learning new information from books!
 
-* The Compount Effect - Jumpstart Your Income, Your Life, Your Success By: Darren Hardy
-* Essentialism: The Disciplined Pursuit of Less By: Greg McKeown
-* The Power of a Positive No: How to Say No and Still Get to Yes By: William Ury and Random House Audio
-* Atomic Habits - James Clear
+- The Compount Effect - Jumpstart Your Income, Your Life, Your Success By: Darren Hardy
+- Essentialism: The Disciplined Pursuit of Less By: Greg McKeown
+- The Power of a Positive No: How to Say No and Still Get to Yes By: William Ury and Random House Audio
+- Atomic Habits - James Clear
 
-* Robert Martin - Uncle Bob - Clean Code
-* Martin Fowler - Always Good Architecture Related Topics - Refactoring: Improving the Design of Existing Code (2nd Edition)
+- Robert Martin - Uncle Bob - Clean Code
+- Martin Fowler - Always Good Architecture Related Topics - Refactoring: Improving the Design of Existing Code (2nd Edition)
 
-* The 5-Hour Rule Used By Bill Gates, James Ma and Elon Musk
-  * They Read 5 hours a week.
-  * Reflect on the information.
-  * Experiment with what you just read.
+- The 5-Hour Rule Used By Bill Gates, James Ma and Elon Musk
+  - They Read 5 hours a week.
+  - Reflect on the information.
+  - Experiment with what you just read.
+
+## Azam Notes
+
+#### React Router Files
+
+**index.js**
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import * as serviceWorker from "./serviceWorker";
+import { BaseLayout } from "./components/BaseLayout";
+import App from "./components/App";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BookList, AddBook, BookDetail } from "./components/BookList";
+
+ReactDOM.render(
+  <BrowserRouter>
+    <BaseLayout>
+      <Switch>
+        <Route path="/" exact component={App} />
+        <Route path="/books/:bookId" component={BookDetail} />
+        <Route path="/books" component={BookList} />
+        <Route path="/add-book" component={AddBook} />
+      </Switch>
+    </BaseLayout>
+  </BrowserRouter>,
+
+  document.getElementById("root")
+);
+
+serviceWorker.unregister();
+```
+
+**App.js**
+
+```js
+import React, { Component } from "react";
+
+class App extends Component {
+  render() {
+    return <div>App</div>;
+  }
+}
+
+export default App;
+```
+
+**BaseLayout.js**
+
+```js
+import React, { Component } from "react";
+import App from "./App";
+import { NavLink } from "react-router-dom";
+
+export class Menu extends Component {
+  render() {
+    return (
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/books">View Books</NavLink>
+        </li>
+        <li>
+          <NavLink to="/add-book">Add Books</NavLink>
+        </li>
+      </ul>
+    );
+  }
+}
+
+export class Footer extends Component {
+  render() {
+    return <div>Footer</div>;
+  }
+}
+
+export class BaseLayout extends Component {
+  render() {
+    return (
+      <div>
+        <Menu />
+        {this.props.children}
+        <Footer />
+      </div>
+    );
+  }
+}
+```
+
+**BookList.js**
+
+```js
+import React, { Component } from "react";
+
+export class BookDetail extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props.match.params.bookId); // get the bookId from url
+  }
+
+  render() {
+    return <div>BookDetail</div>;
+  }
+}
+
+export class BookList extends Component {
+  render() {
+    return <div>BookList</div>;
+  }
+}
+
+// You should create AddList.js for this component instead of putting it in this file
+export class AddBook extends Component {
+  handleSave = () => {
+    this.props.history.push("/"); // go to root route
+  };
+
+  render() {
+    return (
+      <div>
+        <div>AddBook</div>
+        <button onClick={this.handleSave}>Save</button>
+      </div>
+    );
+  }
+}
+```
+
+#### Accidental addition of a Movies src? Probably an old file.
+
+**index.js**
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { BaseLayout } from "./components/BaseLayout";
+import { Services } from "./components/Services";
+import { ContactUs } from "./components/ContactUs";
+import { Movies } from "./components/Movies";
+import registerServiceWorker from "./registerServiceWorker";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+ReactDOM.render(
+  <BrowserRouter>
+    <BaseLayout>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/services" component={Services} />
+        <Route path="/contact-us" component={ContactUs} />
+        <Route path="/movies" component={Movies} />
+      </Switch>
+    </BaseLayout>
+  </BrowserRouter>,
+  document.getElementById("root")
+);
+registerServiceWorker();
+```
+
+**BaseLayout.js**
+
+```js
+import React, { Component } from "react";
+import { Menu } from "./Menu";
+import { Footer } from "./Footer";
+
+export class BaseLayout extends Component {
+  render() {
+    return (
+      <div id="container">
+        <Menu />
+        {this.props.children}
+        <Footer />
+      </div>
+    );
+  }
+}
+```
+
+**ContactUs.js**
+
+```js
+import React, { Component } from "react";
+import "../Styles.css";
+
+export class ContactUs extends Component {
+  render() {
+    return <div>Contact Us</div>;
+  }
+}
+```
+
+**Footer.js**
+
+```js
+import React, { Component } from "react";
+import "../Styles.css";
+
+export class Footer extends Component {
+  render() {
+    return <div id="footer">Copyright 2018</div>;
+  }
+}
+```
+
+**Menu.js**
+
+```js
+import React, { Component } from "react";
+import "../Styles.css";
+import { NavLink } from "react-router-dom";
+
+// Link does not put a default style on the anchor tags
+import { Link } from "react-router-dom";
+
+export class Menu extends Component {
+  render() {
+    return (
+      <div id="menu">
+        <div>
+          <NavLink exact to="/">
+            Home
+          </NavLink>
+        </div>
+        <div>
+          <NavLink to="/services">Services</NavLink>
+        </div>
+        <div>
+          <NavLink to="/contact-us">Contact Us</NavLink>
+        </div>
+        <div>
+          <NavLink to="/movies">Movies</NavLink>
+        </div>
+      </div>
+    );
+  }
+}
+```
+
+**Movies.js**
+
+```js
+import React, { Component } from "react";
+import "../Styles.css";
+
+export class Movies extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      movies: []
+    };
+  }
+
+  componentDidMount() {
+    this.populateMovies();
+  }
+
+  populateMovies() {
+    fetch("http://www.omdbapi.com/?s=Batman&apikey=564727fa&page=2a")
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          movies: json.Search
+        });
+      });
+  }
+
+  handleShowDetails = movie => {
+    this.getMovieDetails(movie);
+  };
+
+  getMovieDetails = movie => {
+    // perform a fetch request with the url
+    // set the state
+  };
+
+  render() {
+    return (
+      <div>
+        <MovieList
+          handleShowDetails={this.handleShowDetails}
+          movies={this.state.movies}
+        />
+
+        <MovieDetails />
+      </div>
+    );
+  }
+}
+
+export class MovieList extends Component {
+  handleShowDetailsButtonPressed = movie => {
+    this.props.handleShowDetails(movie);
+  };
+
+  render() {
+    let movies = this.props.movies;
+
+    let movieItems = movies.map(movie => {
+      return (
+        <li>
+          <label>{movie.Title}</label>
+          <button onClick={() => this.handleShowDetailsButtonPressed(movie)}>
+            Show Details
+          </button>
+        </li>
+      );
+    });
+
+    return <ul>{movieItems}</ul>;
+  }
+}
+
+export class MovieDetails extends Component {
+  render() {
+    return <div>Movie Details</div>;
+  }
+}
+```
+
+**Services.js**
+
+```js
+import React, { Component } from "react";
+import "../Styles.css";
+
+export class Services extends Component {
+  render() {
+    return <div>Services</div>;
+  }
+}
+```
