@@ -459,3 +459,24 @@ export class BookDetail extends Component {
   }
 }
 ```
+
+## Next Steps to Deploy!
+
+say `npm run build` from inside your react folder
+
+This will create a build folder for you
+
+That folder will contain everything that you will need to deploy
+
+It will take all of the React stuff that you had, compiles it all together and sets it up to be simple to deploy
+
+## Practice
+
+Make sure that you're spending the time to practice these things! React is very popular, and more so outside of Texas.
+
+## Assignment
+
+Same Assignment with additional features
+
+* Create Separate pages for adding, viewing the books using React Router
+* Allow the user to filter books based on the genre
