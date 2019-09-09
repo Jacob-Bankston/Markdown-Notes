@@ -344,3 +344,9 @@ console.log(store.getState())
 store.dispatch({type: 'ADD_COUNTER', value: 100})
 console.log(store.getState())
 ```
+
+Assignment - Repeat this process of dispatching, implementing and setting up the reducer at least 3 times.
+
+- Create a node project
+- Go through the process of the loop
+- Make sure that you understand and know what's going on in the process loop.
