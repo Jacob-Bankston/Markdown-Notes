@@ -58,22 +58,7 @@ class App extends Component {
     return (
       <div className="main-content-styles">
         <DisplayName>
-          Hey! I am a child of the DisplayName Component
-        </DisplayName>
-      </div>
-    );
-  }
-}
-```
-
-```js
-class App extends Component {
-  render() {
-    // then you add className to the .css file and style like normal!
-    return (
-      <div className="main-content-styles">
-        <DisplayName>
-          Hey! I am a child of the DisplayName Component
+          <p>Hey! I am a child of the DisplayName Component</p>
         </DisplayName>
       </div>
     );
@@ -88,7 +73,6 @@ export class DisplayName extends Component {
   render() {
     return (
       <div>
-        DisplayName
         <p> {this.props.children}</p>
       </div>
     );
