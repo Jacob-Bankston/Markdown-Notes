@@ -281,3 +281,31 @@ function MovieList(props) {
 
 export default MovieList;
 ```
+
+reducer.js
+
+```js
+const initialState = {
+  counter: 99,
+  username: "johndoe",
+  movies: []
+};
+
+const reducer = (state = initialState, action) => {
+  if (action.type == "INC_COUNTER") {
+    return {
+      ...state,
+      counter: state.counter + 1
+    };
+  } else if (action.type == "MOVIES_LOADED") {
+    return {
+      ...state,
+      movies: action.movies
+    };
+  }
+
+  return state;
+};
+
+export default reducer;
+```
