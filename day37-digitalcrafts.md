@@ -17,7 +17,7 @@ Example for today was with a blue and red counter, but because they are using lo
 
 The redux diagram is super important, memorize the Redux Diagram!
 
-![Redux diagram](redux.png)!
+![Redux diagram](redux.png)
 
 ## Implementing Redux
 
