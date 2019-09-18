@@ -47,7 +47,7 @@ The Document version would have trees down
 
 - npm init
 - npm install express
-- `npm install mongodb`
+- `npm install mongoose`
 - Set up express
   - require express
   - app = express
@@ -105,15 +105,15 @@ In the old days you had to use SQL Commands to be able to set any of these up, s
 - get all the posts!
 
 ```js
-app.get('/posts', (req, res) => {
-    Post.find({}, (error, posts) => {
-        if(error) {
-            res.json({error: 'Unable to fetch posts!'})
-        } else {
-            res.json(posts)
-        }
-    })
-})
+app.get("/posts", (req, res) => {
+  Post.find({}, (error, posts) => {
+    if (error) {
+      res.json({ error: "Unable to fetch posts!" });
+    } else {
+      res.json(posts);
+    }
+  });
+});
 ```
 
 - Check in Postman
@@ -138,17 +138,17 @@ app.get('/posts', (req, res) => {
 ## Add a Post Request
 
 ```js
-app.post('/posts', (req, res) => {
-    const title = req.body.title
-    const body = req.body.body
+app.post("/posts", (req, res) => {
+  const title = req.body.title;
+  const body = req.body.body;
 
-    // relate this to the schema that you set up!
+  // relate this to the schema that you set up!
 
-    let post = new Post({
-        title: title,
-        body: body
-    })
-})
+  let post = new Post({
+    title: title,
+    body: body
+  });
+});
 ```
 
 Finding a post by a title!
@@ -157,21 +157,23 @@ Finding a post by an ID!
 ## Deleting a Post
 
 ```js
-app.delete('posts/:postID', (req, res) => {
+app.delete("posts/:postID", (req, res) => {
+  // get the postID from the route parameter
+  const postID = req.params.postID;
 
-    // get the postID from the route parameter
-    const postID = req.params.postID
-
-    Post.remove({
-        _id: postID
-    }, (error, result) => {
-        if(error) {
-            res.json({error: 'Unable to delete post'})
-        } else {
-            res.json(result)
-        }
-    })
-})
+  Post.remove(
+    {
+      _id: postID
+    },
+    (error, result) => {
+      if (error) {
+        res.json({ error: "Unable to delete post" });
+      } else {
+        res.json(result);
+      }
+    }
+  );
+});
 ```
 
 Check the route on Postman!
@@ -179,30 +181,27 @@ Check the route on Postman!
 ## Updating a Post
 
 ```js
+app.put("/posts", (req, res) => {
+  const postID = req.body.postId;
+  const title = req.body.title;
+  const description = req.body.description;
 
-app.put('/posts', (req, res) => {
+  // const updatedPost = { title, postId, body }
 
-    const postID = req.body.postId
-    const title = req.body.title
-    const description = req.body.description
+  const updatedPost = {
+    title: title,
+    postId: postId,
+    body: body
+  };
 
-    // const updatedPost = { title, postId, body }
-
-    const updatedPost = {
-        title: title,
-        postId: postId,
-        body: body
+  Post.findByIdAndUpdate(postId, updatedPost, (error, result) => {
+    if (error) {
+      res.json({ error: "Unable to update" });
+    } else {
+      res.json({ updated: true });
     }
-
-    Post.findByIdAndUpdate(postId, updatedPost, (error, result) => {
-        if(error) {
-            res.json({error: 'Unable to update'})
-        } else {
-            res.json({updated: true})
-        }
-    })
-
-})
+  });
+});
 ```
 
 put is when you want to update the whole document
@@ -214,40 +213,40 @@ patch is when you want to update portions of it
 ```js
 // schemas/comment.js
 
-const mongoose = require('mongoos')
+const mongoose = require("mongoos");
 
-const Schema = mongoose.Schema
-const ObjectId = Schema.ObjectId
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
 const commentSchema = new mongoose.Schema({
-    postId: ObjectId,
-    title: String,
-    body: String
-})
+  postId: ObjectId,
+  title: String,
+  body: String
+});
 
 // mongoose will create a comments collection in the database
-const Comment = mongoose.model('Comment', commentSchema)
+const Comment = mongoose.model("Comment", commentSchema);
 
-module.exports = Comment
+module.exports = Comment;
 ```
 
 Update the Post Schema with comments!
 
 ```js
 const postSchema = new mongoose.Schema({
-    title: String,
-    body: String,
-    comments: [Comment.schema]
-})
+  title: String,
+  body: String,
+  comments: [Comment.schema]
+});
 ```
 
 You can directly inject a schema into another schema!
 
-* When adding a comment inside of the schema you need to embed it in the post request
-* app.post comments
-* add the normal posting things
-* Then find the post by Id
-* Once found inject the comment into the comments section of the post schema
+- When adding a comment inside of the schema you need to embed it in the post request
+- app.post comments
+- add the normal posting things
+- Then find the post by Id
+- Once found inject the comment into the comments section of the post schema
 
 When you are pulling from parameters, 99% of the time it is a get request
 If you are using a post request, then you should be getting the information from the body
@@ -256,152 +255,153 @@ If you are using a post request, then you should be getting the information from
 
 ```js
 // app.js
-const express = require('express')
-const app = express() 
-var mongoose = require('mongoose');
-const Post = require('./schemas/post')
-const Comment = require('./schemas/comment')
+const express = require("express");
+const app = express();
+var mongoose = require("mongoose");
+const Post = require("./schemas/post");
+const Comment = require("./schemas/comment");
 
-app.use(express.json())
+app.use(express.json());
 
-// connecting to the MongoDB database 
-mongoose.connect('mongodb://localhost/blogdb', {useNewUrlParser: true}, (error) => {
-    if(!error) {
-        console.log('Successfully connected to MongoDB database!')
+// connecting to the MongoDB database
+mongoose.connect(
+  "mongodb://localhost/blogdb",
+  { useNewUrlParser: true },
+  error => {
+    if (!error) {
+      console.log("Successfully connected to MongoDB database!");
     }
+  }
+);
+
+// ADDING A COMMENT INSIDE OF THE POST SCHEMA
+
+app.post("/comments", (req, res) => {
+  const postId = req.body.postId;
+  const title = req.body.title;
+  const body = req.body.body;
+
+  const comment = new Comment({
+    title: title,
+    body: body
+  });
+
+  Post.findById(postId, (error, post) => {
+    post.comments.push(comment);
+    post.save(error => {
+      if (!error) {
+        res.json({ success: true });
+      } else {
+        res.json({ error });
+      }
+    });
+  });
 });
 
+// UPDATING A POST
 
-app.post('/comments',(req,res) => {
+app.put("/posts", (req, res) => {
+  const postId = req.body.postId;
+  const title = req.body.title;
+  const body = req.body.body;
 
-    const postId = req.body.postId 
-    const title = req.body.title 
-    const body = req.body.body 
+  //const updatedPost = { title, postId, body }
 
-    const comment = new Comment({
-        title: title, 
-        body: body 
-    })
+  const updatedPost = {
+    title: title,
+    postId: postId,
+    body: body
+  };
 
-    Post.findById(postId,(error, post) => {
-        post.comments.push(comment)
-        post.save(error => {
-            if(!error) {
-                res.json({success: true})
-            } else {
-                res.json({error})
-            }
-        }) 
-    })
-
-
-})
-
-
-app.put('/posts',(req,res) => {
-
-    const postId = req.body.postId 
-    const title = req.body.title 
-    const body = req.body.body
-
-    //const updatedPost = { title, postId, body }
-
-    const updatedPost = {
-        title: title, 
-        postId: postId, 
-        body: body 
+  Post.findByIdAndUpdate(postId, updatedPost, (error, result) => {
+    if (error) {
+      res.json({ error: "Unable to updated" });
+    } else {
+      res.json({ updated: true });
     }
+  });
+});
 
-    Post.findByIdAndUpdate(postId,updatedPost,(error, result) => {
-        if(error) {
-            res.json({error: 'Unable to updated'})
-        } else {
-            res.json({updated: true})
-        }
-    })
+// DELETING A POST
 
-})
+app.delete("/posts/:postId", (req, res) => {
+  // get the postId from the route parameter
+  const postId = req.params.postId;
 
+  Post.remove(
+    {
+      _id: postId
+    },
+    (error, result) => {
+      if (error) {
+        res.json({ error: "Unable to delete post" });
+      } else {
+        res.json(result);
+      }
+    }
+  );
+});
 
-app.delete('/posts/:postId',(req,res) => {
-
-     // get the postId from the route parameter 
-     const postId = req.params.postId
-
-     Post.remove({
-         _id: postId
-     },(error,result) => {
-         if(error) {
-             res.json({error: 'Unable to delete post'})
-         } else {
-             res.json(result)
-         }
-     })
-
-})
+// FINDING A POST BY AN ID
 
 //  /posts/5d8246dcd94aa228362d1e33
-app.get('/posts/:postId',(req,res) => {
+app.get("/posts/:postId", (req, res) => {
+  // get the postId from the route parameter
+  const postId = req.params.postId;
 
-    // get the postId from the route parameter 
-    const postId = req.params.postId
-    
-    Post.findById(postId,((error,post)=> {
-        if(error) {
-            res.json({error: 'Unable to get post'})
-        } else {
-            res.json(post)
-        }
-    })) 
+  Post.findById(postId, (error, post) => {
+    if (error) {
+      res.json({ error: "Unable to get post" });
+    } else {
+      res.json(post);
+    }
+  });
 
-    // finding the post by title 
-    /*
+  // finding the post by title
+  /*
     Post.findOne({
         title: 'Hello Python'
     }, (error, post) => {
         res.json(post)
     }) */
+});
 
+// ADDING A POST
 
-})
+app.post("/posts", (req, res) => {
+  const title = req.body.title;
+  const body = req.body.description;
 
-app.post('/posts',(req,res) => {
+  let post = new Post({
+    title: title,
+    body: body
+  });
 
-    const title = req.body.title 
-    const body = req.body.description 
+  post.save(error => {
+    if (error) {
+      res.json({ error: "Unable to save" });
+    } else {
+      res.json({ success: true, message: "Saved new post!" });
+    }
+  });
+});
 
-    let post = new Post({
-        title: title, 
-        body: body
-    })
+// VIEW ALL POSTS!
 
-    post.save((error) => {
-        if(error) {
-            res.json({error: 'Unable to save'})
-        } else {
-            res.json({success: true, message: 'Saved new post!'})
-        }
-    })
+// get all posts
+app.get("/posts", (req, res) => {
+  Post.find({}, (error, posts) => {
+    if (error) {
+      res.json({ error: "Unable to fetch posts!" });
+    } else {
+      res.json(posts);
+    }
+  });
+});
 
-
-
-})
-
-// get all posts 
-app.get('/posts',(req,res) => {
-    Post.find({},(error,posts) => {
-        if(error) {
-            res.json({error: 'Unable to fetch posts!'})
-        } else {
-            res.json(posts)
-        }
-    })
-})
-
-
-app.listen(3000,() => {
-    console.log('Server is running...')
-})
+app.listen(3000, () => {
+  console.log("Server is running...");
+});
 ```
 
 ### schemas Folder
@@ -409,37 +409,35 @@ app.listen(3000,() => {
 ```js
 // comment.js
 
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 //const Schema = mongoose.Schema
 //const ObjectId = Schema.ObjectId
 
 const commentSchema = new mongoose.Schema({
-    title: String, 
-    body: String 
-})
+  title: String,
+  body: String
+});
 
-// mongoose will create a posts collection in the database 
-const Comment = mongoose.model('Comment',commentSchema) 
+// mongoose will create a posts collection in the database
+const Comment = mongoose.model("Comment", commentSchema);
 
-module.exports = Comment
-
+module.exports = Comment;
 ```
 
 ```js
 // post.js
 
-const mongoose = require('mongoose')
-const Comment = require('./comment')
+const mongoose = require("mongoose");
+const Comment = require("./comment");
 
 const postSchema = new mongoose.Schema({
-    title: String, 
-    body: String, 
-    comments: [Comment.schema] 
-})
+  title: String,
+  body: String,
+  comments: [Comment.schema]
+});
 
-// mongoose will create a posts collection in the database 
-const Post = mongoose.model('Post',postSchema) 
+// mongoose will create a posts collection in the database
+const Post = mongoose.model("Post", postSchema);
 
-module.exports = Post 
-
+module.exports = Post;
 ```
