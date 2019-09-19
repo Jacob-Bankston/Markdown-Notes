@@ -386,7 +386,7 @@ app.post("/posts", (req, res) => {
   });
 });
 
-// VIEW ALL POSTS!
+// VIEW ALL POSTS!error
 
 // get all posts
 app.get("/posts", (req, res) => {
