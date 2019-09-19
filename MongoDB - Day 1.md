@@ -301,6 +301,9 @@ app.post("/comments", (req, res) => {
 // UPDATING A POST
 
 app.put("/posts", (req, res) => {
+
+  // note that the postId is listed as _id in MongoDB
+
   const postId = req.body.postId;
   const title = req.body.title;
   const body = req.body.body;
